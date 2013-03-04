@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="jquery-ui/|QUnit/" kind="src" path="script"/>
+	<classpathentry kind="src" path="script/jquery-ui"/>
+	<classpathentry kind="src" path="script/QUnit"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.USER_LIBRARY/jquery-1.9"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.USER_LIBRARY/jquery.UI"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.USER_LIBRARY/QUnit"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

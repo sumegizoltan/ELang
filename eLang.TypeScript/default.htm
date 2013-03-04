@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>TypeScript HTML App</title>
+    <link href="Content/themes/base/minified/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />>
+
+    <script type="text/javascript" src="Scripts/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-ui-1.10.0.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="jquery.elang/jquery.elang.db.js"></script>
+    <script type="text/javascript" src="jquery.elang/jquery.elang.edit.js"></script>
+    <script type="text/javascript" src="jquery.elang/jquery.elang.search.js"></script>
+    <script type="text/javascript" src="jquery.elang/jquery.elang.lang.en.js"></script>
+    <script type="text/javascript" src="jquery.elang/jquery.elang.lang.hu.js"></script>
+    <style>
+		body              { font-size: 80%; padding: 0 25% 0 25%; }
+		#pnlSearchResult  { height: 110px; }
+		#pnlEditResult	  { height: 200px; }
+		.editfield 		  { width: 90%; }
+		div.langdirection, div.testvariant, div.testmode 
+						  { padding: 3px 0px 3px 0px; margin: 10px 5px 0px 5px; }
+		.panel            { padding: 10px 0px 10px 0px; margin: 0px 5px 0px 5px; }
+		.langmenu		  { height: 20px; }
+	</style>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            
+        });
+    </script>
+</head>
+<body>
+    <h1>TypeScript HTML App</h1>
+
+    <div class="ui-widget content">
+			<div class="ui-widget-header ui-corner-all">
+				<span id="lblPageHeader">eLang - Nyelvtanulás</span>
+			</div>
+			<div class="langmenu ui-menu">
+				<img src="img/en.png" class="ui-menu-icon ui-button lang-en" alt="en" />
+				<img src="img/hu.png" class="ui-menu-icon ui-button lang-hu" alt="hu" />
+			</div>
+			
+			<div id="accordion">
+				<h3 class="search"></h3>
+				<div></div>
+				<h3 class="edit"></h3>
+				<div></div>
+				<h3 class="test"></h3>
+				<div></div>
+			</div>
+		</div>
+</body>
+</html>

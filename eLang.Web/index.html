@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<title>eLang - Nyelvtanulás</title>
+		<meta charset="utf-8" />
+        <link href="Content/themes/base/minified/jquery.ui.theme.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="Scripts/jquery-ui-1.10.0.min.js"></script>
+		<script type="text/javascript" src="Scripts/jquery.elang.common.js" ></script>
+		<script type="text/javascript" src="Scripts/jquery.elang.db.js" ></script>
+		<script type="text/javascript" src="Scripts/jquery.elang.search.js" ></script>
+		<script type="text/javascript" src="Scripts/jquery.elang.edit.js" ></script>
+		<script type="text/javascript" src="Scripts/jquery.elang.lang.hu.js" ></script>
+		<script type="text/javascript" src="Scripts/jquery.elang.lang.en.js" ></script>
+		<script type="text/javascript" src="Scripts/elang.web.js" ></script>
+		<style>
+			body              { font-size: 80%; padding: 0 25% 0 25%; }
+			#pnlSearchResult  { height: 110px; }
+			#pnlEditResult	  { height: 200px; }
+			.editfield 		  { width: 90%; }
+			div.langdirection, div.testvariant, div.testmode 
+							  { padding: 3px 0px 3px 0px; margin: 10px 5px 0px 5px; }
+			.panel            { padding: 10px 0px 10px 0px; margin: 0px 5px 0px 5px; }
+			.langmenu		  { height: 20px; }
+		</style>
+	</head>
+	<body>
+		<div class="ui-widget content">
+			<div class="ui-widget-header ui-corner-all">
+				<span id="lblPageHeader">eLang - Nyelvtanulás</span>
+			</div>
+			<div class="langmenu ui-menu">
+				<img src="img/en.png" class="ui-menu-icon ui-button lang-en" alt="en" />
+				<img src="img/hu.png" class="ui-menu-icon ui-button lang-hu" alt="hu" />
+			</div>
+			
+			<div id="accordion">
+				<h3 class="search"><span id="lblFindHead">Keresés</span></h3>
+				<div class="search ui-widget-content ui-state-default">
+					<div class="langdirection ui-widget-content ui-state-default ui-corner-all">
+						<input name="langdirection" type="radio" value="expression" checked="checked" />
+						<span id="lblSearchInExpressions">keresés a kifejezésekben</span>
+						<input name="langdirection" type="radio" value="meaning" />
+						<span id="lblSearchInMeanings">keresés a jelentésekben</span>
+					</div>
+					<div class="panel">
+						<span id="lblSearchField">Keresendő kifejezés</span>:<br >
+						<input class="searchfield ui-corner-all" type="text" />
+					</div>
+					
+					<div id="pnlSearchResult" class="result">
+						<div class="ui-widget-header ui-corner-all">
+							<span id="lblFindedExpressionsHead">Keresett kifejezések</span>
+						</div>
+						
+					</div>
+				</div>
+				<h3 class="edit"><span id="lblEditHead">Szerkesztés</span></h3>
+				<div class="edit ui-widget-content ui-state-default">
+					<div class="panel">
+						<form action="">
+							<span id="lblEditKeyField">Kifejezés</span>:<br >
+							<input class="editfield ui-corner-all" type="text" /><br >
+							<span id="lblEditValueField">Jelentés</span>:<br >
+							<input class="editfield ui-corner-all" type="text" />
+							<div class="panel ui-buttonset">
+								<button id="btnAdd" class="ui-button" type="submit">
+									<span id="lblAdd">Hozzáad</span>
+								</button>
+							</div>
+						</form>
+					</div>
+					
+					<div id="pnlEditResult" class="result">
+						<div class="ui-widget-header ui-corner-all">
+							<span id="lblEditedExpressionsHead">Kifejezések</span>
+						</div>
+						
+					</div>
+				</div>
+				<h3 class="text"><span id="lblTesztHead">Teszt</span></h3>
+				<div class="test ui-widget-content ui-state-default">
+					<div class="testvariant ui-widget-content ui-state-default ui-corner-all">
+						<input name="testvariant" type="radio" value="ordered" checked="checked" />
+						<span id="lblOrderedTest">Kérdések sorrendben</span>
+						<input name="testvariant" type="radio" value="randomly" />
+						<span id="lblRandomlyTest">Kérdések véletlen sorrendben</span>
+					</div>
+					<div class="testmode ui-widget-content ui-state-default ui-corner-all">
+						<input name="testmode" type="radio" value="typed" checked="checked" />
+						<span id="lblTypedTest">Válaszok begépelése</span>
+						<input name="testmode" type="radio" value="selectable" />
+						<span id="lblSelectedTest">Válaszok kiválasztása</span>
+					</div>
+					
+					<div id="pnlTestResult" class="result">
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
