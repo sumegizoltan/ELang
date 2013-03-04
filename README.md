@@ -7,3 +7,4 @@ NuGet package
 =============
 
 PM> Install-Package eLang
+PM> Install-Package eLang-demo
