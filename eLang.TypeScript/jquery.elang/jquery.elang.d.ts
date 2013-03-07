@@ -1,18 +1,17 @@
 ﻿// Type definitions for eLang
-// Project: https://bitbucket.org/zoli73/eLang/
-// Definitions by: Zoltan Sumegi <https://bitbucket.org/zoli73/>
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-interface IPageLanguages {
+interface IPageResource {
     lang?: IPageLangItems;
 }
 
 interface IPageLangItems {
     en?: IPageLabels;
     hu?: IPageLabels;
-    [key: string]: IPageLabels;
 }
 
 interface IPageLabels {
@@ -31,13 +30,16 @@ interface IPageLabels {
     lblRemove?: string;
     lblSearchInExpressions?: string;
     lblSearchInMeanings?: string;
-    lblTesztHead?: string;
+    lblTestHead?: string;
     lblOrderedTest?: string;
     lblRandomlyTest?: string;
     lblTypedTest?: string;
     lblSelectedTest?: string;
+}
 
-    [key: string]: string;
+interface ELangCommonStatic {
+    resource: IPageResource;
+    setLang(langid: string): void;
 }
 
 // ELang database (LocalStorage) functionality with Singleton instance
@@ -90,4 +92,75 @@ interface IELangDB {
 
 interface ELangStatic {
     getInstance(options?: IELangDBOptions): IELangDB;
+}
+
+// ELangBase
+
+interface IELangBase {
+    name: string;
+    description: string;
+    delegates: any;
+    element: JQuery;
+    events: any;
+    options: any;
+
+    initialize(target: HTMLElement, options: any): void;
+
+    processCommand(command: string): JQuery;
+    setOptions(options: any): void;
+}
+
+// ELangSearch
+
+interface IELangSearchDelegates {
+    selectHandler: Function;
+    selectCallback: Function;
+}
+
+interface IELangSearchEvents {
+    select: JQueryDeferred;
+}
+
+interface IELangSearch extends IELangBase {
+    delegates: IELangSearchDelegates;
+    events: IELangSearchEvents;
+
+    _onSelect(eSrc: HTMLInputElement): void;
+    _onSelectCallback(): void;
+
+    _select(eSrc: HTMLInputElement): void;
+}
+
+// ELangEdit
+
+interface IELangEditDelegates extends IELangSearchDelegates {
+    insertHandler: Function;
+    modifyHandler: Function;
+    removeHandler: Function;
+
+    insertCallback: Function;
+    modifyCallback: Function;
+    removeCallback: Function;
+}
+
+interface IELangEditEvents extends IELangSearchEvents {
+    insert: JQueryDeferred;
+    modify: JQueryDeferred;
+    remove: JQueryDeferred;
+}
+
+interface IELangEdit extends IELangBase, IELangSearch {
+    delegates: IELangEditDelegates;
+    events: IELangEditEvents;
+
+    _onInsert(): void;
+    _onInsertCallback(): void;
+    _onModify(): void;
+    _onModifyCallback(): void;
+    _onRemove(): void;
+    _onRemoveCallback(): void;
+
+    _insert(): void;
+    _modify(): void;
+    _remove(): void;
 }

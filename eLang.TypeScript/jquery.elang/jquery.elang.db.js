@@ -29,6 +29,9 @@ var ELang;
             this.description = "Html5 localstorage based instance.";
         }
         ELangDB._instance = null;
+        ELangDB._syncLock = {
+            isLocked: false
+        };
         ELangDB.prototype.initialize = function (options) {
             if (typeof options === "undefined") { options = null; }
             this.options = new ELangDBOptions();
@@ -91,8 +94,20 @@ var ELang;
         ELangDB.getInstance = function getInstance(options) {
             if (typeof options === "undefined") { options = null; }
             if(!ELangDB._instance) {
-                ELangDB._instance = new ELangDB();
-                ELangDB._instance.initialize(options);
+                if(ELangDB._syncLock.isLocked) {
+                    var i = 0;
+                    while(ELangDB._syncLock.isLocked) {
+                        i = 1;
+                    }
+                }
+                if(!ELangDB._instance) {
+                    ELangDB._syncLock.isLocked = true;
+                    ELangDB._instance = new ELangDB();
+                    ELangDB._instance.initialize(options);
+                    ELangDB._syncLock.isLocked = false;
+                } else {
+                    ELangDB._instance.setOptions(options);
+                }
             } else {
                 ELangDB._instance.setOptions(options);
             }

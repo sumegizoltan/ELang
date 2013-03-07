@@ -25,18 +25,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eLang.TypeScript", "eLang.T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tagmanager_hg", "tagmanager_hg", "{6D787736-01DD-40B6-B975-692237E33FB3}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite5", "..\..\Git\TagManager_hg\WebSite5\", "{0BE9356C-CBB1-44BE-9A47-703AD2E23C5D}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite5", "..\TagManager_hg\WebSite5\", "{0BE9356C-CBB1-44BE-9A47-703AD2E23C5D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		Debug.AspNetCompiler.VirtualPath = "/WebSite5"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\Git\TagManager_hg\WebSite5\"
+		Debug.AspNetCompiler.PhysicalPath = "..\TagManager_hg\WebSite5\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite5\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/WebSite5"
-		Release.AspNetCompiler.PhysicalPath = "..\..\Git\TagManager_hg\WebSite5\"
+		Release.AspNetCompiler.PhysicalPath = "..\TagManager_hg\WebSite5\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite5\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
@@ -45,7 +45,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite5", "..\..\Git\TagMa
 		VWDPort = "3262"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagManager.TypeScript", "..\..\Git\TagManager_hg\TagManager.TypeScript\TagManager.TypeScript.csproj", "{42EA3F45-1851-480E-AEE3-C40997D4D241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagManager.TypeScript", "..\TagManager_hg\TagManager.TypeScript\TagManager.TypeScript.csproj", "{42EA3F45-1851-480E-AEE3-C40997D4D241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

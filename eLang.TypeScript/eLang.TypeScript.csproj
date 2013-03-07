@@ -99,6 +99,13 @@
     <Content Include="bootstrap\bootstrap.d.ts" />
     <Content Include="img\en.png" />
     <Content Include="img\hu.png" />
+    <Content Include="jquery.elang\jquery.elang.common.js">
+      <DependentUpon>jquery.elang.common.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.common.min.js">
+      <DependentUpon>jquery.elang.common.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.common.ts" />
     <Content Include="jquery\jquery.d.ts" />
     <Content Include="jquery.elang\jquery.elang.d.ts" />
     <Content Include="jquery.elang\jquery.elang.db.js">

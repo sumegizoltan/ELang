@@ -28,7 +28,20 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            
+            ELang.ELangCommon.setLang("en");
+
+            jQuery("img.lang-hu").click(function () {
+                ELang.ELangCommon.setLang("hu");
+            });
+            jQuery("img.lang-en").click(function () {
+                ELang.ELangCommon.setLang("en");
+            });
+
+            $("#accordion").accordion({ header: "h3", active: 0 });
+
+            $("h3.search").elangSearch();
+            $("h3.edit").elangEdit();
+
         });
     </script>
 </head>

@@ -1,6 +1,6 @@
 ﻿// Type definitions for eLang
-// Project: https://bitbucket.org/zoli73/eLang/
-// Definitions by: Zoltan Sumegi <https://bitbucket.org/zoli73/>
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -38,6 +38,7 @@ module ELang {
     export class ELangDB implements IELangDB {
 
         private static _instance: ELangDB = null;
+        private static _syncLock: any = { isLocked: false };
 
         private cache: any = {};
         private delegates: IELangDBDelegates;
@@ -132,8 +133,24 @@ module ELang {
 
         public static getInstance(options: IELangDBOptions = null): ELangDB {
             if (!_instance) {
-                _instance = new ELangDB();
-                _instance.initialize(options);
+                if (_syncLock.isLocked) {
+                    var i = 0;
+                    while (_syncLock.isLocked) {
+                        i = 1;
+                    }
+                }
+
+                if (!_instance) {
+                    _syncLock.isLocked = true;
+
+                    _instance = new ELangDB();
+                    _instance.initialize(options);
+
+                    _syncLock.isLocked = false;
+                }
+                else {
+                    _instance.setOptions(options);
+                }
             }
             else {
                 _instance.setOptions(options);
