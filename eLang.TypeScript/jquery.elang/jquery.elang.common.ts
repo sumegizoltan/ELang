@@ -113,7 +113,8 @@ module ELang {
             if (langid in resource.lang) {
                 resource.selectedLang = langid;
 
-                var elements;
+                var el: HTMLElement = this;
+                var elements: JQuery;
                 if (node) {
                     elements = node.find('[id*="lbl"], [id*="btn"]');
                 }
@@ -121,8 +122,18 @@ module ELang {
                     elements = jQuery('[id*="lbl"], [id*="btn"]');
                 }
                 elements.each(function () {
-                    if (this.id in resource.lang[langid]) {
-                        jQuery(this).text(resource.lang[langid][this.id]);
+                    if (el.id in resource.lang[langid]) {
+                        if (/INPUT/.test(el.tagName)) {
+                            if ((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {
+                                el.setAttribute("placeholder", resource.lang[langid][el.id]);
+                            }
+                            else {
+                                jQuery(el).text(resource.lang[langid][el.id]);
+                            }
+                        }
+                        else {
+                            jQuery(el).text(resource.lang[langid][el.id]);
+                        }
                     }
                 });
             }

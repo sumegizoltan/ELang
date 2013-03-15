@@ -77,6 +77,7 @@ var ELang;
         ELangCommon.setLang = function setLang(langid, node) {
             if(langid in ELangCommon.resource.lang) {
                 ELangCommon.resource.selectedLang = langid;
+                var el = this;
                 var elements;
                 if(node) {
                     elements = node.find('[id*="lbl"], [id*="btn"]');
@@ -84,8 +85,16 @@ var ELang;
                     elements = jQuery('[id*="lbl"], [id*="btn"]');
                 }
                 elements.each(function () {
-                    if(this.id in ELangCommon.resource.lang[langid]) {
-                        jQuery(this).text(ELangCommon.resource.lang[langid][this.id]);
+                    if(el.id in ELangCommon.resource.lang[langid]) {
+                        if(/INPUT/.test(el.tagName)) {
+                            if((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {
+                                el.setAttribute("placeholder", ELangCommon.resource.lang[langid][el.id]);
+                            } else {
+                                jQuery(el).text(ELangCommon.resource.lang[langid][el.id]);
+                            }
+                        } else {
+                            jQuery(el).text(ELangCommon.resource.lang[langid][el.id]);
+                        }
                     }
                 });
             }
