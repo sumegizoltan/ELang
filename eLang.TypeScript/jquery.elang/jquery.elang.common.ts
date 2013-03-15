@@ -18,6 +18,7 @@ module ELang {
         public radioGroupHtml: string;
         public radioButtonHtml: string;
         public headLabel: string;
+        public resultHeadLabel: string;
 
         constructor() {
             this.contentCSS = "ui-widget-content ui-state-default";
@@ -54,6 +55,15 @@ module ELang {
             result.children().addClass(this.defaults.resultHeadCSS);
 
             contentDiv.append(result);
+
+            // head label
+            var head: JQuery = jQuery("<span></span>");
+
+            head.attr("id", this.defaults.headLabel);
+            this.element.append(head);
+
+            // result label
+            result.find("span").attr("id", this.defaults.resultHeadLabel);
         }
 
         public processCommand(command: string): JQuery {
@@ -108,6 +118,19 @@ module ELang {
 
     export class ELangCommon {
         public static resource: IPageResource = new PageResource();
+
+        public static getLabel(labelid: string, langid?: string): string {
+            var lang: string = langid || resource.selectedLang;
+            var label: string = "";
+
+            if (lang in resource.lang) {
+                if (labelid in resource.lang[lang]) {
+                    label = resource.lang[lang][labelid];
+                }
+            }
+
+            return label;
+        }
 
         public static setLang(langid: string, node?: JQuery): void {
             if (langid in resource.lang) {

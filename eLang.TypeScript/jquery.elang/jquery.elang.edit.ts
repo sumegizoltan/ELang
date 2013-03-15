@@ -31,14 +31,38 @@ module ELang {
         public modifyHandler: Function = null;
         public removeCallback: Function = null;
         public removeHandler: Function = null;
+        public btnAddHandler: Function = null;
+        public btnAddClickHandler: Function = null;
 
         constructor() {
             super();
         }
     }
 
-    export class ElangEdit extends ELangSearch implements IELangEdit {
+    export class ELangEditDefaults extends ELangBaseDefaults implements IELangEditDefaults {
+        public editFormHtml: string;
+        public editFieldHtml: string;
+        public addButtonHtml: string;
+        public addButtonLabel: string;
+        public editKeyLabel: string;
+        public editValueLabel: string;
 
+        constructor() {
+            super();
+
+            this.headLabel = "lblEditHead";
+            this.resultHeadLabel = "lblEditedExpressionsHead";
+            this.editFormHtml = '<form class="form-search"><div class="controls controls-row"></div></form>';
+            this.editFieldHtml = '<input class="input-large" type="text" placeholder="-" />';
+            this.addButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
+            this.addButtonLabel = "lblAdd";
+            this.editKeyLabel = "lblEditKeyField";
+            this.editValueLabel = "lblEditValueField";
+        }
+    }
+
+    export class ElangEdit extends ELangBase implements IELangEdit {
+        public defaults: IELangEditDefaults;
         private delegates: IELangEditDelegates;
         private events: IELangEditEvents;
 
@@ -47,21 +71,18 @@ module ELang {
 
             this.name = "eLang-Edit";
             this.description = "eLang - Language Learning edit functionality.";
+            this.defaults = new ELangEditDefaults();
             this.delegates = new ELangEditDelegates();
             this.events = new ELangEditEvents();
         }
 
         public initialize(target: HTMLElement, options: any): void {
-
-            //TODO - set the searchElement property
-
             super.initialize(target, options);
-
-            var _fn;
 
             this.delegates.insertHandler = jQuery.proxy(this._onInsert, this);
             this.delegates.modifyHandler = jQuery.proxy(this._onModify, this);
             this.delegates.removeHandler = jQuery.proxy(this._onRemove, this);
+            this.delegates.btnAddHandler = jQuery.proxy(this._onAddClick, this);
 
             this.delegates.insertCallback = jQuery.proxy(this._onInsertCallback, this);
             this.delegates.modifyCallback = jQuery.proxy(this._onModifyCallback, this);
@@ -71,7 +92,52 @@ module ELang {
             this.events.modify.done(this.delegates.selectHandler);
             this.events.remove.done(this.delegates.selectHandler);
 
-            
+            var handlerAdd: Function = this.delegates.btnAddHandler;
+
+            this.delegates.btnAddClickHandler = function () {
+                var srcE: HTMLElement = this;
+                var fields: Array = srcE.parentNode["getElementsByTagName"]("input");
+                var key: HTMLInputElement = fields[0];
+                var value: HTMLInputElement = fields[1];
+                handlerAdd(key, value);
+            };
+
+            this.createContent();
+        }
+
+        private createContent(): void {
+            super.createContent();
+
+            var contentDiv: JQuery = this.element.next("div");
+            var resultSelector: string = "." + this.defaults.resultCSS.split("")[0];
+            var result: JQuery = contentDiv.find(resultSelector);
+
+            // edit panel
+            var form: JQuery = jQuery(this.defaults.editFormHtml);
+            var keyField: JQuery = jQuery(this.defaults.editFieldHtml);
+            var valueField: JQuery = jQuery(this.defaults.editFieldHtml);
+            var add: JQuery = jQuery(this.defaults.addButtonHtml);
+            var langid: string = ELangCommon.resource.selectedLang;
+            var labelKey: string = ELangCommon.getLabel(this.defaults.editKeyLabel);
+            var labelValue: string = ELangCommon.getLabel(this.defaults.editValueLabel);
+
+            keyField.find("input[placeholder]").attr("placeholder", labelKey);
+            valueField.find("input[placeholder]").attr("placeholder", labelValue);
+            add.find("span").attr("id", this.defaults.addButtonLabel);
+            add.click(this.delegates.btnAddClickHandler);
+            form.append(keyField);
+            form.append(valueField);
+            form.append(add);
+            result.before(form);
+
+            // set labels
+            ELangCommon.setLang(langid, contentDiv);
+        }
+
+        private _onAddClick(key: HTMLInputElement, value: HTMLInputElement): void {
+            //TODO validate fields
+            //TODO update database
+            //TODO refresh list if required
         }
 
         private _onInsert(): void {

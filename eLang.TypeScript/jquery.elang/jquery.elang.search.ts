@@ -31,7 +31,6 @@ module ELang {
     }
 
     export class ELangSearchDefaults extends ELangBaseDefaults implements IELangSearchDefaults {
-        public resultHeadLabel: string;
         public directionExpressionsLabel: string;
         public directionMeaningsLabel: string;
         public searchFormHtml: string;
@@ -93,6 +92,8 @@ module ELang {
                 var srcE: HTMLElement = this;
                 handlerDirection(srcE);
             };
+
+            this.createContent();
         }
 
         private createContent(): void {
@@ -101,15 +102,6 @@ module ELang {
             var contentDiv: JQuery = this.element.next("div");
             var resultSelector: string = "." + this.defaults.resultCSS.split("")[0];
             var result: JQuery = contentDiv.find(resultSelector);
-
-            // head label
-            var head: JQuery = jQuery("<span></span>");
-
-            head.attr("id", this.defaults.headLabel);
-            this.element.append(head);
-
-            // result label
-            result.find("span").attr("id", this.defaults.resultHeadLabel);
 
             // search direction
             var radio: JQuery = jQuery(this.defaults.radioGroupHtml);

@@ -40,6 +40,7 @@ interface IPageLabels {
 
 interface ELangCommonStatic {
     resource: IPageResource;
+    getLabel(labelid: string, langid?: string): string;
     setLang(langid: string, node?: JQuery): void;
 }
 
@@ -104,6 +105,7 @@ interface IELangBaseDefaults {
     radioGroupHtml: string;
     radioButtonHtml: string;
     headLabel: string;
+    resultHeadLabel: string;
 }
 
 interface IELangBase {
@@ -126,7 +128,6 @@ interface IELangBase {
 // ELangSearch
 
 interface IELangSearchDefaults extends IELangBaseDefaults {
-    resultHeadLabel: string;
     directionExpressionsLabel: string;
     directionMeaningsLabel: string;
     searchFormHtml: string;
@@ -169,6 +170,8 @@ interface IELangEditDelegates extends IELangSearchDelegates {
     insertHandler: Function;
     modifyHandler: Function;
     removeHandler: Function;
+    btnAddHandler: Function;
+    btnAddClickHandler: Function;
 
     insertCallback: Function;
     modifyCallback: Function;
@@ -181,10 +184,23 @@ interface IELangEditEvents extends IELangSearchEvents {
     remove: JQueryDeferred;
 }
 
-interface IELangEdit extends IELangBase, IELangSearch {
+interface IELangEditDefaults extends IELangBaseDefaults {
+    editFormHtml: string;
+    editFieldHtml: string;
+    addButtonHtml: string;
+    addButtonLabel: string;
+    editKeyLabel: string;
+    editValueLabel: string;
+}
+
+interface IELangEdit extends IELangBase {
+    defaults: IELangEditDefaults;
     delegates: IELangEditDelegates;
     events: IELangEditEvents;
 
+    createContent(): void;
+
+    _onAddClick(key: HTMLInputElement, value: HTMLInputElement): void;
     _onInsert(): void;
     _onInsertCallback(): void;
     _onModify(): void;

@@ -40,6 +40,12 @@ var ELang;
             result.addClass(this.defaults.resultCSS);
             result.children().addClass(this.defaults.resultHeadCSS);
             contentDiv.append(result);
+            // head label
+            var head = jQuery("<span></span>");
+            head.attr("id", this.defaults.headLabel);
+            this.element.append(head);
+            // result label
+            result.find("span").attr("id", this.defaults.resultHeadLabel);
         };
         ELangBase.prototype.processCommand = function (command) {
             if(command) {
@@ -74,6 +80,16 @@ var ELang;
     var ELangCommon = (function () {
         function ELangCommon() { }
         ELangCommon.resource = new PageResource();
+        ELangCommon.getLabel = function getLabel(labelid, langid) {
+            var lang = langid || ELangCommon.resource.selectedLang;
+            var label = "";
+            if(lang in ELangCommon.resource.lang) {
+                if(labelid in ELangCommon.resource.lang[lang]) {
+                    label = ELangCommon.resource.lang[lang][labelid];
+                }
+            }
+            return label;
+        };
         ELangCommon.setLang = function setLang(langid, node) {
             if(langid in ELangCommon.resource.lang) {
                 ELangCommon.resource.selectedLang = langid;

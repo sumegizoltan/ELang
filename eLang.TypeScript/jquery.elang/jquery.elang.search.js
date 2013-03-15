@@ -78,18 +78,13 @@ var ELang;
                 var srcE = this;
                 handlerDirection(srcE);
             };
+            this.createContent();
         };
         ELangSearch.prototype.createContent = function () {
             _super.prototype.createContent.call(this);
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split("")[0];
             var result = contentDiv.find(resultSelector);
-            // head label
-            var head = jQuery("<span></span>");
-            head.attr("id", this.defaults.headLabel);
-            this.element.append(head);
-            // result label
-            result.find("span").attr("id", this.defaults.resultHeadLabel);
             // search direction
             var radio = jQuery(this.defaults.radioGroupHtml);
             var btn1 = jQuery(this.defaults.radioButtonHtml);
