@@ -61,6 +61,7 @@ var ELang;
         function PageResource() {
             this.lang = {
             };
+            this.selectedLand = "";
         }
         return PageResource;
     })();
@@ -73,9 +74,16 @@ var ELang;
     var ELangCommon = (function () {
         function ELangCommon() { }
         ELangCommon.resource = new PageResource();
-        ELangCommon.setLang = function setLang(langid) {
+        ELangCommon.setLang = function setLang(langid, node) {
             if(langid in ELangCommon.resource.lang) {
-                jQuery('[id*="lbl"], [id*="btn"]').each(function () {
+                ELangCommon.resource.selectedLang = langid;
+                var elements;
+                if(node) {
+                    elements = node.find('[id*="lbl"], [id*="btn"]');
+                } else {
+                    elements = jQuery('[id*="lbl"], [id*="btn"]');
+                }
+                elements.each(function () {
                     if(this.id in ELangCommon.resource.lang[langid]) {
                         jQuery(this).text(ELangCommon.resource.lang[langid][this.id]);
                     }

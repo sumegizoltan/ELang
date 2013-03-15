@@ -37,6 +37,7 @@ var ELang;
         __extends(ELangSearchDefaults, _super);
         function ELangSearchDefaults() {
                 _super.call(this);
+            this.headLabel = "lblFindHead";
             this.resultHeadLabel = "lblFindedExpressionsHead";
             this.directionExpressionsLabel = "lblSearchInExpressions";
             this.directionMeaningsLabel = "lblSearchInMeanings";
@@ -83,6 +84,10 @@ var ELang;
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split("")[0];
             var result = contentDiv.find(resultSelector);
+            // head label
+            var head = jQuery("<span></span>");
+            head.attr("id", this.defaults.headLabel);
+            this.element.append(head);
             // result label
             result.find("span").attr("id", this.defaults.resultHeadLabel);
             // search direction
@@ -96,7 +101,7 @@ var ELang;
             radio.append(btn1);
             radio.append(btn2);
             result.before(radio);
-            //TODO set labels
+            ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, radio);
             radio.button();
             // search panel
             var form = jQuery(this.defaults.searchFormHtml);
@@ -107,6 +112,8 @@ var ELang;
             form.append(input);
             form.append(search);
             result.before(form);
+            // set labels
+            ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, contentDiv);
             // init typeahead for input
             //TODO typeahead init
                     };

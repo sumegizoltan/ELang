@@ -17,6 +17,7 @@ module ELang {
         public resultHeadCSS: string;
         public radioGroupHtml: string;
         public radioButtonHtml: string;
+        public headLabel: string;
 
         constructor() {
             this.contentCSS = "ui-widget-content ui-state-default";
@@ -76,6 +77,7 @@ module ELang {
 
     export class PageResource implements IPageResource {
         public lang: IPageLangItems = {};
+        public selectedLand: string = "";
 
         constructor() {
         }
@@ -107,9 +109,18 @@ module ELang {
     export class ELangCommon {
         public static resource: IPageResource = new PageResource();
 
-        public static setLang(langid: string): void {
+        public static setLang(langid: string, node?: JQuery): void {
             if (langid in resource.lang) {
-                jQuery('[id*="lbl"], [id*="btn"]').each(function () {
+                resource.selectedLang = langid;
+
+                var elements;
+                if (node) {
+                    elements = node.find('[id*="lbl"], [id*="btn"]');
+                }
+                else {
+                    elements = jQuery('[id*="lbl"], [id*="btn"]');
+                }
+                elements.each(function () {
                     if (this.id in resource.lang[langid]) {
                         jQuery(this).text(resource.lang[langid][this.id]);
                     }

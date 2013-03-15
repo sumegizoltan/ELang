@@ -7,6 +7,7 @@
 
 interface IPageResource {
     lang?: IPageLangItems;
+    selectedLang?: string;
 }
 
 interface IPageLangItems {
@@ -39,7 +40,7 @@ interface IPageLabels {
 
 interface ELangCommonStatic {
     resource: IPageResource;
-    setLang(langid: string): void;
+    setLang(langid: string, node?: JQuery): void;
 }
 
 // ELang database (LocalStorage) functionality with Singleton instance
@@ -102,6 +103,7 @@ interface IELangBaseDefaults {
     resultHeadCSS: string;
     radioGroupHtml: string;
     radioButtonHtml: string;
+    headLabel: string;
 }
 
 interface IELangBase {

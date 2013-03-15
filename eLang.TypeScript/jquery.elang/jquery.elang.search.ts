@@ -42,6 +42,7 @@ module ELang {
         constructor() {
             super();
 
+            this.headLabel = "lblFindHead";
             this.resultHeadLabel = "lblFindedExpressionsHead";
             this.directionExpressionsLabel = "lblSearchInExpressions";
             this.directionMeaningsLabel = "lblSearchInMeanings";
@@ -101,6 +102,12 @@ module ELang {
             var resultSelector: string = "." + this.defaults.resultCSS.split("")[0];
             var result: JQuery = contentDiv.find(resultSelector);
 
+            // head label
+            var head: JQuery = jQuery("<span></span>");
+
+            head.attr("id", this.defaults.headLabel);
+            this.element.append(head);
+
             // result label
             result.find("span").attr("id", this.defaults.resultHeadLabel);
 
@@ -116,7 +123,7 @@ module ELang {
             radio.append(btn1);
             radio.append(btn2);
             result.before(radio);
-            //TODO set labels
+            ELangCommon.setLang(ELangCommon.resource.selectedLang, radio);
 
             radio.button();
 
@@ -130,6 +137,9 @@ module ELang {
             form.append(input);
             form.append(search);
             result.before(form);
+
+            // set labels
+            ELangCommon.setLang(ELangCommon.resource.selectedLang, contentDiv);
 
             // init typeahead for input
             //TODO typeahead init
