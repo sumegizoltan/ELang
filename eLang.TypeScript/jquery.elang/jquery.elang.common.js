@@ -1,5 +1,23 @@
+// Type definitions for eLang
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="./jquery.elang.d.ts"/>
 var ELang;
 (function (ELang) {
+    // ELangBase
+    var ELangBaseDefaults = (function () {
+        function ELangBaseDefaults() {
+            this.contentCSS = "ui-widget-content ui-state-default";
+            this.resultCSS = "result";
+            this.resultHeadCSS = "ui-widget-header ui-corner-all";
+            this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
+            this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+        }
+        return ELangBaseDefaults;
+    })();
+    ELang.ELangBaseDefaults = ELangBaseDefaults;    
     var ELangBase = (function () {
         function ELangBase() {
             this.name = "elang-Base";
@@ -10,9 +28,18 @@ var ELang;
             };
             this.options = {
             };
+            this.defaults = new ELangBaseDefaults();
         }
         ELangBase.prototype.initialize = function (target, options) {
             this.element = jQuery(target);
+        };
+        ELangBase.prototype.createContent = function () {
+            var contentDiv = this.element.next("div");
+            var result = jQuery("<div><div><span></span></div></div>");
+            contentDiv.addClass(this.defaults.contentCSS);
+            result.addClass(this.defaults.resultCSS);
+            result.children().addClass(this.defaults.resultHeadCSS);
+            contentDiv.append(result);
         };
         ELangBase.prototype.processCommand = function (command) {
             if(command) {
@@ -29,6 +56,7 @@ var ELang;
         return ELangBase;
     })();
     ELang.ELangBase = ELangBase;    
+    // ELangCommon
     var PageResource = (function () {
         function PageResource() {
             this.lang = {
@@ -58,3 +86,4 @@ var ELang;
     })();
     ELang.ELangCommon = ELangCommon;    
 })(ELang || (ELang = {}));
+//@ sourceMappingURL=jquery.elang.common.js.map

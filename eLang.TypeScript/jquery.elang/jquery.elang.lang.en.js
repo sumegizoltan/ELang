@@ -1,3 +1,10 @@
+// Type definitions for eLang
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="./jquery.elang.d.ts" />
+/// <reference path="./jquery.elang.common.ts"/>
 var ELang;
 (function (ELang) {
     var resource = new ELang.PageLabels();
@@ -10,7 +17,7 @@ var ELang;
     resource.lblEditedExpressionsHead = "Expressions";
     resource.lblFindHead = "Find";
     resource.lblEditHead = "Edit";
-    resource.lblFind = "Find";
+    resource.lblFind = "Search";
     resource.lblAdd = "Add";
     resource.lblModify = "Modify";
     resource.lblRemove = "Remove";
@@ -25,3 +32,4 @@ var ELang;
         en: resource
     });
 })(ELang || (ELang = {}));
+//@ sourceMappingURL=jquery.elang.lang.en.js.map

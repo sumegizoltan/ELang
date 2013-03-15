@@ -96,6 +96,14 @@ interface ELangStatic {
 
 // ELangBase
 
+interface IELangBaseDefaults {
+    contentCSS: string;
+    resultCSS: string;
+    resultHeadCSS: string;
+    radioGroupHtml: string;
+    radioButtonHtml: string;
+}
+
 interface IELangBase {
     name: string;
     description: string;
@@ -103,8 +111,11 @@ interface IELangBase {
     element: JQuery;
     events: any;
     options: any;
+    defaults: IELangBaseDefaults;
 
     initialize(target: HTMLElement, options: any): void;
+
+    createContent(): void;
 
     processCommand(command: string): JQuery;
     setOptions(options: any): void;
@@ -112,9 +123,23 @@ interface IELangBase {
 
 // ELangSearch
 
+interface IELangSearchDefaults extends IELangBaseDefaults {
+    resultHeadLabel: string;
+    directionExpressionsLabel: string;
+    directionMeaningsLabel: string;
+    searchFormHtml: string;
+    searchFieldHtml: string;
+    searchButtonHtml: string;
+    searchButtonLabel: string;
+}
+
 interface IELangSearchDelegates {
     selectHandler: Function;
     selectCallback: Function;
+    langDirectionHandler: Function;
+    langDirectionClickHandler: Function;
+    searchHandler: Function;
+    searchClickHandler: Function;
 }
 
 interface IELangSearchEvents {
@@ -122,9 +147,14 @@ interface IELangSearchEvents {
 }
 
 interface IELangSearch extends IELangBase {
+    defaults: IELangSearchDefaults;
     delegates: IELangSearchDelegates;
     events: IELangSearchEvents;
+    isSearchInExp: bool;
 
+    createContent(): void;
+
+    _onDirectionClick(eSrc: HTMLElement): void;
     _onSelect(eSrc: HTMLInputElement): void;
     _onSelectCallback(): void;
 

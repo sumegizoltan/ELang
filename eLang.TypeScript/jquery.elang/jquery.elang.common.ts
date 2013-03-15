@@ -11,6 +11,22 @@ module ELang {
 
     // ELangBase
 
+    export class ELangBaseDefaults implements IELangBaseDefaults {
+        public contentCSS: string;
+        public resultCSS: string;
+        public resultHeadCSS: string;
+        public radioGroupHtml: string;
+        public radioButtonHtml: string;
+
+        constructor() {
+            this.contentCSS = "ui-widget-content ui-state-default";
+            this.resultCSS = "result";
+            this.resultHeadCSS = "ui-widget-header ui-corner-all";
+            this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
+            this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+        }
+    }
+
     export class ELangBase implements IELangBase {
         public name: string = "elang-Base";
         public description: string = "eLang base class";
@@ -18,12 +34,25 @@ module ELang {
         public element: JQuery;
         public events: any = {};
         public options: any = {};
+        public defaults: IELangBaseDefaults;
 
         constructor() {
+            this.defaults = new ELangBaseDefaults();
         }
 
         public initialize(target: HTMLElement, options: any): void {
             this.element = jQuery(target);
+        }
+
+        public createContent(): void {
+            var contentDiv: JQuery = this.element.next("div");
+            var result: JQuery = jQuery("<div><div><span></span></div></div>");
+
+            contentDiv.addClass(this.defaults.contentCSS);
+            result.addClass(this.defaults.resultCSS);
+            result.children().addClass(this.defaults.resultHeadCSS);
+
+            contentDiv.append(result);
         }
 
         public processCommand(command: string): JQuery {

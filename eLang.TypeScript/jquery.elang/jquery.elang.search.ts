@@ -4,6 +4,7 @@
 // Definitions: 
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../bootstrap/bootstrap.d.ts"/>
 /// <reference path="./jquery.elang.d.ts"/>
 /// <reference path="./jquery.elang.common.ts"/>
 /// <reference path="./jquery.elang.db.ts"/>
@@ -20,38 +21,123 @@ module ELang {
     export class ELangSearchDelegates implements IELangSearchDelegates {
         public selectCallback: Function = null;
         public selectHandler: Function = null;
+        public langDirectionHandler: Function = null;
+        public langDirectionClickHandler: Function = null;
+        public searchHandler: Function = null;
+        public searchClickHandler: Function = null;
 
         constructor() {
         }
     }
 
-    export class ELangSearch extends ELangBase implements IELangSearch {
+    export class ELangSearchDefaults extends ELangBaseDefaults implements IELangSearchDefaults {
+        public resultHeadLabel: string;
+        public directionExpressionsLabel: string;
+        public directionMeaningsLabel: string;
+        public searchFormHtml: string;
+        public searchFieldHtml: string;
+        public searchButtonHtml: string;
+        public searchButtonLabel: string;
 
+        constructor() {
+            super();
+
+            this.resultHeadLabel = "lblFindedExpressionsHead";
+            this.directionExpressionsLabel = "lblSearchInExpressions";
+            this.directionMeaningsLabel = "lblSearchInMeanings";
+            this.searchFormHtml = '<form class="form-search"><div class="input-append"></div></form>';
+            this.searchFieldHtml = '<input type="text" class="span2 search-query" />';
+            this.searchButtonHtml = '<button type="submit" class="btn"><span></span></button>';
+            this.searchButtonLabel = "lblFind";
+        }
+    }
+
+    export class ELangSearch extends ELangBase implements IELangSearch {
+        public defaults: IELangSearchDefaults;
         private delegates: IELangSearchDelegates;
         private events: IELangSearchEvents;
+        private isSearchInExp: bool;
 
         constructor() {
             super();
             
             this.name = "eLang-Search";
             this.description = "eLang - Language Learning search functionality.";
+            this.defaults = new ELangSearchDefaults();
             this.delegates = new ELangSearchDelegates();
             this.events = new ELangSearchEvents();
+            this.isSearchInExp = true;
         }
 
         public initialize(target: HTMLElement, options: any): void {
             super.initialize(target, options);
 
-            var _fn;
-
             this.delegates.selectHandler = jQuery.proxy(this._onSelect, this);
             this.delegates.selectCallback = jQuery.proxy(this._onSelectCallback, this);
+            this.delegates.langDirectionHandler = jQuery.proxy(this._onDirectionClick, this);
+            this.delegates.searchHandler = jQuery.proxy(this._select, this);
+
             this.events.select.done(this.delegates.selectHandler);
 
-            _fn = jQuery.proxy(this._select, this);
+            var handlerDirection: Function = this.delegates.langDirectionHandler;
+            var handlerSearch: Function = this.delegates.searchHandler;
 
-            //TODO - searchElement property required
-            this.element.keyup(function () { _fn(this); });
+            this.delegates.searchClickHandler = function () {
+                var srcE: HTMLElement = this;
+                var el: HTMLElement = srcE.parentNode["getElementsByTagName"]("input")[0];
+                handlerSearch(el);
+            };
+
+            this.delegates.langDirectionClickHandler = function () {
+                var srcE: HTMLElement = this;
+                handlerDirection(srcE);
+            };
+        }
+
+        private createContent(): void {
+            super.createContent();
+
+            var contentDiv: JQuery = this.element.next("div");
+            var resultSelector: string = "." + this.defaults.resultCSS.split("")[0];
+            var result: JQuery = contentDiv.find(resultSelector);
+
+            // result label
+            result.find("span").attr("id", this.defaults.resultHeadLabel);
+
+            // search direction
+            var radio: JQuery = jQuery(this.defaults.radioGroupHtml);
+            var btn1: JQuery = jQuery(this.defaults.radioButtonHtml);
+            var btn2: JQuery = jQuery(this.defaults.radioButtonHtml);
+
+            btn1.find("span").attr("id", this.defaults.directionExpressionsLabel);
+            btn2.find("span").attr("id", this.defaults.directionMeaningsLabel);
+            btn1.click(this.delegates.langDirectionClickHandler);
+            btn2.click(this.delegates.langDirectionClickHandler);
+            radio.append(btn1);
+            radio.append(btn2);
+            result.before(radio);
+            //TODO set labels
+
+            radio.button();
+
+            // search panel
+            var form: JQuery = jQuery(this.defaults.searchFormHtml);
+            var input: JQuery = jQuery(this.defaults.searchFieldHtml);
+            var search: JQuery = jQuery(this.defaults.searchButtonHtml);
+
+            search.find("span").attr("id", this.defaults.searchButtonLabel);
+            search.click(this.delegates.searchClickHandler);
+            form.append(input);
+            form.append(search);
+            result.before(form);
+
+            // init typeahead for input
+            //TODO typeahead init
+        }
+
+        private _onDirectionClick(eSrc: HTMLElement): void {
+            var id: string = jQuery(eSrc).find("span").attr("id");
+            this.isSearchInExp = (id == this.defaults.directionExpressionsLabel);
         }
 
         private _onSelect(eSrc: HTMLInputElement): void {

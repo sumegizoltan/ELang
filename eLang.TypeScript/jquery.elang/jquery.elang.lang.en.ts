@@ -18,7 +18,7 @@ module ELang {
     resource.lblEditedExpressionsHead= "Expressions";
     resource.lblFindHead= "Find";
     resource.lblEditHead= "Edit";
-    resource.lblFind= "Find";
+    resource.lblFind= "Search";
     resource.lblAdd= "Add";
     resource.lblModify= "Modify";
     resource.lblRemove= "Remove";
