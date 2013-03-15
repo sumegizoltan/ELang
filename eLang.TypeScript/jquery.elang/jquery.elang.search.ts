@@ -126,6 +126,7 @@ module ELang {
             ELangCommon.setLang(ELangCommon.resource.selectedLang, radio);
 
             radio.button();
+            btn1.click();
 
             // search panel
             var form: JQuery = jQuery(this.defaults.searchFormHtml);

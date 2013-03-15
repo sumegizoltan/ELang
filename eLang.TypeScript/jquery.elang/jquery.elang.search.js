@@ -103,6 +103,7 @@ var ELang;
             result.before(radio);
             ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, radio);
             radio.button();
+            btn1.click();
             // search panel
             var form = jQuery(this.defaults.searchFormHtml);
             var input = jQuery(this.defaults.searchFieldHtml);
