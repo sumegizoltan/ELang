@@ -3,7 +3,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-// Type definitions for eLang
+// Type definitions for eLang.search 0.4.1
 // Project: https://github.com/sumegizoltan/ELang/
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions:

@@ -1,4 +1,4 @@
-﻿// Type definitions for eLang
+﻿// Type definitions for eLang.search 0.4.1
 // Project: https://github.com/sumegizoltan/ELang/
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
