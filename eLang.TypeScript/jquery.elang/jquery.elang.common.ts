@@ -13,17 +13,21 @@ module ELang {
 
     export class ELangBaseDefaults implements IELangBaseDefaults {
         public contentCSS: string;
+        public contentInnerCSS: string;
         public resultCSS: string;
         public resultHeadCSS: string;
+        public contentInnerHtml: string;
         public radioGroupHtml: string;
         public radioButtonHtml: string;
         public headLabel: string;
         public resultHeadLabel: string;
 
         constructor() {
-            this.contentCSS = "ui-widget-content ui-state-default";
+            this.contentCSS = "ui-widget-content";
             this.resultCSS = "result";
             this.resultHeadCSS = "ui-widget-header ui-corner-all";
+            this.contentInnerCSS = "content";
+            this.contentInnerHtml = '<div></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
         }
@@ -53,6 +57,11 @@ module ELang {
             contentDiv.addClass(this.defaults.contentCSS);
             result.addClass(this.defaults.resultCSS);
             result.children().addClass(this.defaults.resultHeadCSS);
+
+            if (this.defaults.contentInnerHtml) {
+                contentDiv = jQuery(this.defaults.contentInnerHtml).appendTo(contentDiv);
+                contentDiv.addClass(this.defaults.contentInnerCSS);
+            }
 
             contentDiv.append(result);
 
@@ -136,15 +145,17 @@ module ELang {
             if (langid in resource.lang) {
                 resource.selectedLang = langid;
 
-                var el: HTMLElement = this;
                 var elements: JQuery;
                 if (node) {
-                    elements = node.find('[id*="lbl"], [id*="btn"]');
+                    elements = node.find('*').filter('[id*="lbl"], [id*="btn"]');
                 }
                 else {
                     elements = jQuery('[id*="lbl"], [id*="btn"]');
                 }
+
                 elements.each(function () {
+                    var el: HTMLElement = this;
+                    
                     if (el.id in resource.lang[langid]) {
                         if (/INPUT/.test(el.tagName)) {
                             if ((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {

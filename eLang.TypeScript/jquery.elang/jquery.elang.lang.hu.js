@@ -1,4 +1,11 @@
-﻿var ELang;
+﻿// Type definitions for eLang
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="./jquery.elang.d.ts" />
+/// <reference path="./jquery.elang.common.ts"/>
+var ELang;
 (function (ELang) {
     var resource = new ELang.PageLabels();
     resource.lblTitle = "eLang - Nyelvtanulás";
@@ -6,7 +13,7 @@
     resource.lblSearchField = "Keresendő kifejezés";
     resource.lblEditKeyField = "Kifejezés";
     resource.lblEditValueField = "Jelentés";
-    resource.lblFindedExpressionsHead = "Keresett kifejezések";
+    resource.lblFindedExpressionsHead = "Találatok";
     resource.lblEditedExpressionsHead = "Kifejezések";
     resource.lblFindHead = "Keresés";
     resource.lblEditHead = "Szerkesztés";
@@ -14,14 +21,15 @@
     resource.lblAdd = "Hozzáad";
     resource.lblModify = "Módosít";
     resource.lblRemove = "Töröl";
-    resource.lblSearchInExpressions = "keresés a kifejezésekben";
-    resource.lblSearchInMeanings = "keresés a jelentésekben";
+    resource.lblSearchInExpressions = "Kifejezés";
+    resource.lblSearchInMeanings = "Jelentés";
     resource.lblTestHead = "Teszt";
-    resource.lblOrderedTest = "Kérdések sorrendben";
-    resource.lblRandomlyTest = "Kérdések véletlen sorrendben";
-    resource.lblTypedTest = "Válaszok begépelése";
-    resource.lblSelectedTest = "Válaszok kiválasztása";
+    resource.lblOrderedTest = "Sorban";
+    resource.lblRandomlyTest = "Vegyesen";
+    resource.lblTypedTest = "Gépelés";
+    resource.lblSelectedTest = "Kiválasztás";
     jQuery.extend(true, ELang.ELangCommon.resource.lang, {
         hu: resource
     });
 })(ELang || (ELang = {}));
+//@ sourceMappingURL=jquery.elang.lang.hu.js.map

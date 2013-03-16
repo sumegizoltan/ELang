@@ -100,8 +100,10 @@ interface ELangStatic {
 
 interface IELangBaseDefaults {
     contentCSS: string;
+    contentInnerCSS: string;
     resultCSS: string;
     resultHeadCSS: string;
+    contentInnerHtml: string;
     radioGroupHtml: string;
     radioButtonHtml: string;
     headLabel: string;

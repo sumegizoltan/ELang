@@ -9,9 +9,11 @@ var ELang;
     // ELangBase
     var ELangBaseDefaults = (function () {
         function ELangBaseDefaults() {
-            this.contentCSS = "ui-widget-content ui-state-default";
+            this.contentCSS = "ui-widget-content";
             this.resultCSS = "result";
             this.resultHeadCSS = "ui-widget-header ui-corner-all";
+            this.contentInnerCSS = "content";
+            this.contentInnerHtml = '<div></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
         }
@@ -39,6 +41,10 @@ var ELang;
             contentDiv.addClass(this.defaults.contentCSS);
             result.addClass(this.defaults.resultCSS);
             result.children().addClass(this.defaults.resultHeadCSS);
+            if(this.defaults.contentInnerHtml) {
+                contentDiv = jQuery(this.defaults.contentInnerHtml).appendTo(contentDiv);
+                contentDiv.addClass(this.defaults.contentInnerCSS);
+            }
             contentDiv.append(result);
             // head label
             var head = jQuery("<span></span>");
@@ -93,14 +99,14 @@ var ELang;
         ELangCommon.setLang = function setLang(langid, node) {
             if(langid in ELangCommon.resource.lang) {
                 ELangCommon.resource.selectedLang = langid;
-                var el = this;
                 var elements;
                 if(node) {
-                    elements = node.find('[id*="lbl"], [id*="btn"]');
+                    elements = node.find('*').filter('[id*="lbl"], [id*="btn"]');
                 } else {
                     elements = jQuery('[id*="lbl"], [id*="btn"]');
                 }
                 elements.each(function () {
+                    var el = this;
                     if(el.id in ELangCommon.resource.lang[langid]) {
                         if(/INPUT/.test(el.tagName)) {
                             if((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {

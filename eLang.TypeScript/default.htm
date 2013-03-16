@@ -20,6 +20,7 @@
 		body              { font-size: 80%; padding: 0 25% 0 25%; }
 		#pnlSearchResult  { height: 110px; }
 		#pnlEditResult	  { height: 200px; }
+        #accordion div.ui-accordion-content div.content { height: 300px; }
 		.editfield 		  { width: 90%; }
 		div.langdirection, div.testvariant, div.testmode 
 						  { padding: 3px 0px 3px 0px; margin: 10px 5px 0px 5px; }
@@ -38,10 +39,10 @@
                 ELang.ELangCommon.setLang("en");
             });
 
-            $("#accordion").accordion({ header: "h3", active: 0 });
-
             $("h3.search").elangSearch();
             $("h3.edit").elangEdit();
+
+            $("#accordion").accordion({ header: "h3", active: 0 });
 
         });
     </script>

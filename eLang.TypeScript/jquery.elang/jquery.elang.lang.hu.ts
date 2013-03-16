@@ -14,7 +14,7 @@ module ELang {
     resource.lblSearchField= "Keresendő kifejezés";
     resource.lblEditKeyField= "Kifejezés";
     resource.lblEditValueField= "Jelentés";
-    resource.lblFindedExpressionsHead= "Keresett kifejezések";
+    resource.lblFindedExpressionsHead= "Találatok";
     resource.lblEditedExpressionsHead= "Kifejezések";
     resource.lblFindHead= "Keresés";
     resource.lblEditHead= "Szerkesztés";
@@ -22,13 +22,13 @@ module ELang {
     resource.lblAdd= "Hozzáad";
     resource.lblModify= "Módosít";
     resource.lblRemove= "Töröl";
-    resource.lblSearchInExpressions= "keresés a kifejezésekben";
-    resource.lblSearchInMeanings= "keresés a jelentésekben";
+    resource.lblSearchInExpressions= "Kifejezés";
+    resource.lblSearchInMeanings= "Jelentés";
     resource.lblTestHead= "Teszt";
-    resource.lblOrderedTest= "Kérdések sorrendben";
-    resource.lblRandomlyTest= "Kérdések véletlen sorrendben";
-    resource.lblTypedTest= "Válaszok begépelése";
-    resource.lblSelectedTest= "Válaszok kiválasztása";
+    resource.lblOrderedTest= "Sorban";
+    resource.lblRandomlyTest= "Vegyesen";
+    resource.lblTypedTest= "Gépelés";
+    resource.lblSelectedTest= "Kiválasztás";
 
     jQuery.extend(true, ELangCommon.resource.lang, { hu: resource });
 }

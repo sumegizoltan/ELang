@@ -13,7 +13,7 @@ var ELang;
     resource.lblSearchField = "Findable expression";
     resource.lblEditKeyField = "Expression";
     resource.lblEditValueField = "Meaning";
-    resource.lblFindedExpressionsHead = "Finded Expressions";
+    resource.lblFindedExpressionsHead = "Founds";
     resource.lblEditedExpressionsHead = "Expressions";
     resource.lblFindHead = "Find";
     resource.lblEditHead = "Edit";
@@ -21,13 +21,13 @@ var ELang;
     resource.lblAdd = "Add";
     resource.lblModify = "Modify";
     resource.lblRemove = "Remove";
-    resource.lblSearchInExpressions = "find in expressions";
-    resource.lblSearchInMeanings = "find in meanings";
+    resource.lblSearchInExpressions = "Expression";
+    resource.lblSearchInMeanings = "Meaning";
     resource.lblTestHead = "Test";
-    resource.lblOrderedTest = "Ordered questions";
-    resource.lblRandomlyTest = "Randomly questions";
-    resource.lblTypedTest = "Typed answers";
-    resource.lblSelectedTest = "Selected answers";
+    resource.lblOrderedTest = "Ordered";
+    resource.lblRandomlyTest = "Randomly";
+    resource.lblTypedTest = "Typed";
+    resource.lblSelectedTest = "Selected";
     jQuery.extend(true, ELang.ELangCommon.resource.lang, {
         en: resource
     });
