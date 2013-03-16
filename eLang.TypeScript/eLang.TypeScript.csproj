@@ -106,46 +106,64 @@
       <DependentUpon>jquery.elang.common.ts</DependentUpon>
     </Content>
     <Content Include="jquery.elang\jquery.elang.common.ts" />
+    <Content Include="jquery.elang\jquery.elang.db.min.js">
+      <DependentUpon>jquery.elang.db.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.edit.min.js">
+      <DependentUpon>jquery.elang.edit.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.lang.en.min.js">
+      <DependentUpon>jquery.elang.lang.en.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.lang.hu.min.js">
+      <DependentUpon>jquery.elang.lang.hu.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.search.min.js">
+      <DependentUpon>jquery.elang.search.ts</DependentUpon>
+    </Content>
     <Content Include="jquery\jquery.d.ts" />
     <Content Include="jquery.elang\jquery.elang.d.ts" />
     <Content Include="jquery.elang\jquery.elang.db.js">
-      <DependentUpon>jquery.elang.db.ts</DependentUpon>
-    </Content>
-    <Content Include="jquery.elang\jquery.elang.db.min.js">
       <DependentUpon>jquery.elang.db.ts</DependentUpon>
     </Content>
     <Content Include="jquery.elang\jquery.elang.db.ts" />
     <Content Include="jquery.elang\jquery.elang.edit.js">
       <DependentUpon>jquery.elang.edit.ts</DependentUpon>
     </Content>
-    <Content Include="jquery.elang\jquery.elang.edit.min.js">
-      <DependentUpon>jquery.elang.edit.ts</DependentUpon>
-    </Content>
     <Content Include="jquery.elang\jquery.elang.edit.ts" />
     <Content Include="jquery.elang\jquery.elang.lang.en.js">
-      <DependentUpon>jquery.elang.lang.en.ts</DependentUpon>
-    </Content>
-    <Content Include="jquery.elang\jquery.elang.lang.en.min.js">
       <DependentUpon>jquery.elang.lang.en.ts</DependentUpon>
     </Content>
     <Content Include="jquery.elang\jquery.elang.lang.en.ts" />
     <Content Include="jquery.elang\jquery.elang.lang.hu.js">
       <DependentUpon>jquery.elang.lang.hu.ts</DependentUpon>
     </Content>
-    <Content Include="jquery.elang\jquery.elang.lang.hu.min.js">
-      <DependentUpon>jquery.elang.lang.hu.ts</DependentUpon>
-    </Content>
     <Content Include="jquery.elang\jquery.elang.lang.hu.ts" />
     <Content Include="jquery.elang\jquery.elang.search.js">
-      <DependentUpon>jquery.elang.search.ts</DependentUpon>
-    </Content>
-    <Content Include="jquery.elang\jquery.elang.search.min.js">
       <DependentUpon>jquery.elang.search.ts</DependentUpon>
     </Content>
     <Content Include="jquery.elang\jquery.elang.search.ts" />
     <Content Include="jqueryui\jqueryui.d.ts" />
     <Content Include="qunit\qunit.d.ts" />
     <Content Include="packages.config" />
+    <Content Include="jquery.elang\jquery.elang.common.js.map">
+      <DependentUpon>jquery.elang.common.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.db.js.map">
+      <DependentUpon>jquery.elang.db.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.edit.js.map">
+      <DependentUpon>jquery.elang.edit.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.lang.en.js.map">
+      <DependentUpon>jquery.elang.lang.en.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.lang.hu.js.map">
+      <DependentUpon>jquery.elang.lang.hu.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.search.js.map">
+      <DependentUpon>jquery.elang.search.ts</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

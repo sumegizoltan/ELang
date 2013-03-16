@@ -1,12 +1,5 @@
-// Type definitions for eLang.common 0.4.1
-// Project: https://github.com/sumegizoltan/ELang/
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
-// Definitions:
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="./jquery.elang.d.ts"/>
 var ELang;
 (function (ELang) {
-    // ELangBase
     var ELangBaseDefaults = (function () {
         function ELangBaseDefaults() {
             this.contentCSS = "";
@@ -52,11 +45,9 @@ var ELang;
             }
             contentDiv = this.getLastChild(contentDiv);
             contentDiv.append(result);
-            // head label
             var head = jQuery(this.defaults.headLabelHtml);
             head.attr("id", this.defaults.headLabel);
             this.element.append(head);
-            // set labels
             ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
         };
         ELangBase.prototype.appendAsLastChild = function (node, element) {
@@ -88,7 +79,6 @@ var ELang;
         return ELangBase;
     })();
     ELang.ELangBase = ELangBase;    
-    // ELangCommon
     var PageResource = (function () {
         function PageResource() {
             this.lang = {
@@ -145,4 +135,3 @@ var ELang;
     })();
     ELang.ELangCommon = ELangCommon;    
 })(ELang || (ELang = {}));
-//@ sourceMappingURL=jquery.elang.common.js.map
