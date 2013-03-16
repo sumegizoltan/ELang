@@ -166,22 +166,25 @@ interface IELangSearch extends IELangBase {
 
 // ELangEdit
 
-interface IELangEditDelegates extends IELangSearchDelegates {
+interface IELangEditDelegates {
     insertHandler: Function;
     modifyHandler: Function;
     removeHandler: Function;
+    selectHandler: Function;
     btnAddHandler: Function;
     btnAddClickHandler: Function;
 
     insertCallback: Function;
     modifyCallback: Function;
     removeCallback: Function;
+    selectCallback: Function;
 }
 
-interface IELangEditEvents extends IELangSearchEvents {
+interface IELangEditEvents {
     insert: JQueryDeferred;
     modify: JQueryDeferred;
     remove: JQueryDeferred;
+    select: JQueryDeferred;
 }
 
 interface IELangEditDefaults extends IELangBaseDefaults {
@@ -207,8 +210,12 @@ interface IELangEdit extends IELangBase {
     _onModifyCallback(): void;
     _onRemove(): void;
     _onRemoveCallback(): void;
+    _onSelect(): void;
+    _onSelectCallback(): void;
+
 
     _insert(): void;
     _modify(): void;
     _remove(): void;
+    _select(): void;
 }

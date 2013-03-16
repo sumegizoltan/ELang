@@ -49,8 +49,6 @@ var ELang;
         };
         ELangBase.prototype.processCommand = function (command) {
             if(command) {
-            } else {
-                this.element.data("elang", jQuery.proxy(this.processCommand, this));
             }
             return this.element;
         };

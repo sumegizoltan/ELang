@@ -94,6 +94,8 @@ module ELang {
             };
 
             this.createContent();
+
+            this.element.data("elang-search", jQuery.proxy(this.processCommand, this));
         }
 
         private createContent(): void {
@@ -166,3 +168,33 @@ module ELang {
         }
     }
 }
+
+(function (jQuery) {
+    jQuery.fn.elangSearch = function (options?: any, command?: string) {
+        var result: JQuery = this;
+        var isFirstOnly: bool = true;
+        
+        for (var i = 0; i < result.length; i++) {
+            var el: HTMLElement = result[i];
+            var fn: Function = el["elang-search"];  // elang-search.processCommand()
+
+            if (command && (typeof (command) == "string")) {
+                if (jQuery.isFunction(fn)) {
+                    fn(command);
+                }
+            }
+            else {
+                if (!fn) {
+                    var elangSearch: IELangSearch = new ELang.ELangSearch();
+                    elangSearch.initialize(el, options);
+                }
+            }
+
+            if (isFirstOnly) {
+                break;
+            }
+        }
+
+        return result;
+    };
+})(jQuery);

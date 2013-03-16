@@ -14,31 +14,30 @@ var __extends = this.__extends || function (d, b) {
 /// <reference path="./jquery.elang.search.ts"/>
 var ELang;
 (function (ELang) {
-    var ELangEditEvents = (function (_super) {
-        __extends(ELangEditEvents, _super);
+    var ELangEditEvents = (function () {
         function ELangEditEvents() {
-                _super.call(this);
             this.insert = new jQuery.Deferred();
             this.modify = new jQuery.Deferred();
             this.remove = new jQuery.Deferred();
+            this.select = new jQuery.Deferred();
         }
         return ELangEditEvents;
-    })(ELang.ELangSearchEvents);    
-    var ELangEditDelegates = (function (_super) {
-        __extends(ELangEditDelegates, _super);
+    })();    
+    var ELangEditDelegates = (function () {
         function ELangEditDelegates() {
-                _super.call(this);
             this.insertCallback = null;
             this.insertHandler = null;
             this.modifyCallback = null;
             this.modifyHandler = null;
             this.removeCallback = null;
             this.removeHandler = null;
+            this.selectHandler = null;
+            this.selectCallback = null;
             this.btnAddHandler = null;
             this.btnAddClickHandler = null;
         }
         return ELangEditDelegates;
-    })(ELang.ELangSearchDelegates);    
+    })();    
     var ELangEditDefaults = (function (_super) {
         __extends(ELangEditDefaults, _super);
         function ELangEditDefaults() {
@@ -55,9 +54,9 @@ var ELang;
         return ELangEditDefaults;
     })(ELang.ELangBaseDefaults);
     ELang.ELangEditDefaults = ELangEditDefaults;    
-    var ElangEdit = (function (_super) {
-        __extends(ElangEdit, _super);
-        function ElangEdit() {
+    var ELangEdit = (function (_super) {
+        __extends(ELangEdit, _super);
+        function ELangEdit() {
                 _super.call(this);
             this.name = "eLang-Edit";
             this.description = "eLang - Language Learning edit functionality.";
@@ -65,18 +64,21 @@ var ELang;
             this.delegates = new ELangEditDelegates();
             this.events = new ELangEditEvents();
         }
-        ElangEdit.prototype.initialize = function (target, options) {
+        ELangEdit.prototype.initialize = function (target, options) {
             _super.prototype.initialize.call(this, target, options);
             this.delegates.insertHandler = jQuery.proxy(this._onInsert, this);
             this.delegates.modifyHandler = jQuery.proxy(this._onModify, this);
             this.delegates.removeHandler = jQuery.proxy(this._onRemove, this);
+            this.delegates.selectHandler = jQuery.proxy(this._onSelect, this);
             this.delegates.btnAddHandler = jQuery.proxy(this._onAddClick, this);
             this.delegates.insertCallback = jQuery.proxy(this._onInsertCallback, this);
             this.delegates.modifyCallback = jQuery.proxy(this._onModifyCallback, this);
             this.delegates.removeCallback = jQuery.proxy(this._onRemoveCallback, this);
-            this.events.insert.done(this.delegates.selectHandler);
-            this.events.modify.done(this.delegates.selectHandler);
-            this.events.remove.done(this.delegates.selectHandler);
+            this.delegates.selectCallback = jQuery.proxy(this._onSelectCallback, this);
+            this.events.insert.done(this.delegates.insertHandler);
+            this.events.modify.done(this.delegates.modifyHandler);
+            this.events.remove.done(this.delegates.removeHandler);
+            this.events.select.done(this.delegates.selectHandler);
             var handlerAdd = this.delegates.btnAddHandler;
             this.delegates.btnAddClickHandler = function () {
                 var srcE = this;
@@ -86,8 +88,9 @@ var ELang;
                 handlerAdd(key, value);
             };
             this.createContent();
+            this.element.data("elang-edit", jQuery.proxy(this.processCommand, this));
         };
-        ElangEdit.prototype.createContent = function () {
+        ELangEdit.prototype.createContent = function () {
             _super.prototype.createContent.call(this);
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split("")[0];
@@ -111,34 +114,66 @@ var ELang;
             // set labels
             ELang.ELangCommon.setLang(langid, contentDiv);
         };
-        ElangEdit.prototype._onAddClick = function (key, value) {
+        ELangEdit.prototype._onAddClick = function (key, value) {
             //TODO validate fields
             //TODO update database
             //TODO refresh list if required
                     };
-        ElangEdit.prototype._onInsert = function () {
+        ELangEdit.prototype._onInsert = function () {
         };
-        ElangEdit.prototype._onModify = function () {
+        ELangEdit.prototype._onModify = function () {
         };
-        ElangEdit.prototype._onRemove = function () {
+        ELangEdit.prototype._onRemove = function () {
         };
-        ElangEdit.prototype._onInsertCallback = function () {
+        ELangEdit.prototype._onSelect = function () {
         };
-        ElangEdit.prototype._onModifyCallback = function () {
+        ELangEdit.prototype._onInsertCallback = function () {
         };
-        ElangEdit.prototype._onRemoveCallback = function () {
+        ELangEdit.prototype._onModifyCallback = function () {
         };
-        ElangEdit.prototype._insert = function () {
+        ELangEdit.prototype._onRemoveCallback = function () {
+        };
+        ELangEdit.prototype._onSelectCallback = function () {
+        };
+        ELangEdit.prototype._insert = function () {
             this.events.insert.resolve();
         };
-        ElangEdit.prototype._modify = function () {
+        ELangEdit.prototype._modify = function () {
             this.events.modify.resolve();
         };
-        ElangEdit.prototype._remove = function () {
+        ELangEdit.prototype._remove = function () {
             this.events.remove.resolve();
         };
-        return ElangEdit;
+        ELangEdit.prototype._select = function () {
+            this.events.select.resolve();
+        };
+        return ELangEdit;
     })(ELang.ELangBase);
-    ELang.ElangEdit = ElangEdit;    
+    ELang.ELangEdit = ELangEdit;    
 })(ELang || (ELang = {}));
+(function (jQuery) {
+    jQuery.fn.elangEdit = function (options, command) {
+        var result = this;
+        var isFirstOnly = true;
+        for(var i = 0; i < result.length; i++) {
+            var el = result[i];
+            var fn = el["elang-edit"];// elang-edit.processCommand()
+            
+            if(command && (typeof (command) == "string")) {
+                if(jQuery.isFunction(fn)) {
+                    fn(command);
+                }
+            } else {
+                if(!fn) {
+                    var elangEdit = new ELang.ELangEdit();
+                    elangEdit.initialize(el, options);
+                }
+            }
+            if(isFirstOnly) {
+                break;
+            }
+        }
+        return result;
+    };
+})(jQuery);
 //@ sourceMappingURL=jquery.elang.edit.js.map

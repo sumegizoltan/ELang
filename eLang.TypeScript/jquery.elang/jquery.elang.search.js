@@ -79,6 +79,7 @@ var ELang;
                 handlerDirection(srcE);
             };
             this.createContent();
+            this.element.data("elang-search", jQuery.proxy(this.processCommand, this));
         };
         ELangSearch.prototype.createContent = function () {
             _super.prototype.createContent.call(this);
@@ -136,4 +137,29 @@ var ELang;
     })(ELang.ELangBase);
     ELang.ELangSearch = ELangSearch;    
 })(ELang || (ELang = {}));
+(function (jQuery) {
+    jQuery.fn.elangSearch = function (options, command) {
+        var result = this;
+        var isFirstOnly = true;
+        for(var i = 0; i < result.length; i++) {
+            var el = result[i];
+            var fn = el["elang-search"];// elang-search.processCommand()
+            
+            if(command && (typeof (command) == "string")) {
+                if(jQuery.isFunction(fn)) {
+                    fn(command);
+                }
+            } else {
+                if(!fn) {
+                    var elangSearch = new ELang.ELangSearch();
+                    elangSearch.initialize(el, options);
+                }
+            }
+            if(isFirstOnly) {
+                break;
+            }
+        }
+        return result;
+    };
+})(jQuery);
 //@ sourceMappingURL=jquery.elang.search.js.map

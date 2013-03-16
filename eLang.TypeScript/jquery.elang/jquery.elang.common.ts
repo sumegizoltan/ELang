@@ -69,9 +69,6 @@ module ELang {
         public processCommand(command: string): JQuery {
             if (command) {
             }
-            else {
-                this.element.data("elang", jQuery.proxy(this.processCommand, this));
-            }
 
             return this.element;
         }

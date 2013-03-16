@@ -10,32 +10,33 @@
 /// <reference path="./jquery.elang.search.ts"/>
 
 module ELang {
-    class ELangEditEvents extends ELangSearchEvents implements IELangEditEvents {
+    class ELangEditEvents implements IELangEditEvents {
         public insert: JQueryDeferred;
         public modify: JQueryDeferred;
         public remove: JQueryDeferred;
+        public select: JQueryDeferred;
 
         constructor() {
-            super();
-
             this.insert = new jQuery.Deferred();
             this.modify = new jQuery.Deferred();
             this.remove = new jQuery.Deferred();
+            this.select = new jQuery.Deferred();
         }
     }
 
-    class ELangEditDelegates extends ELangSearchDelegates implements IELangEditDelegates {
+    class ELangEditDelegates implements IELangEditDelegates {
         public insertCallback: Function = null;
         public insertHandler: Function = null;
         public modifyCallback: Function = null;
         public modifyHandler: Function = null;
         public removeCallback: Function = null;
         public removeHandler: Function = null;
+        public selectHandler: Function = null;
+        public selectCallback: Function = null;
         public btnAddHandler: Function = null;
         public btnAddClickHandler: Function = null;
 
         constructor() {
-            super();
         }
     }
 
@@ -61,7 +62,7 @@ module ELang {
         }
     }
 
-    export class ElangEdit extends ELangBase implements IELangEdit {
+    export class ELangEdit extends ELangBase implements IELangEdit {
         public defaults: IELangEditDefaults;
         private delegates: IELangEditDelegates;
         private events: IELangEditEvents;
@@ -82,15 +83,18 @@ module ELang {
             this.delegates.insertHandler = jQuery.proxy(this._onInsert, this);
             this.delegates.modifyHandler = jQuery.proxy(this._onModify, this);
             this.delegates.removeHandler = jQuery.proxy(this._onRemove, this);
+            this.delegates.selectHandler = jQuery.proxy(this._onSelect, this);
             this.delegates.btnAddHandler = jQuery.proxy(this._onAddClick, this);
 
             this.delegates.insertCallback = jQuery.proxy(this._onInsertCallback, this);
             this.delegates.modifyCallback = jQuery.proxy(this._onModifyCallback, this);
             this.delegates.removeCallback = jQuery.proxy(this._onRemoveCallback, this);
+            this.delegates.selectCallback = jQuery.proxy(this._onSelectCallback, this);
 
-            this.events.insert.done(this.delegates.selectHandler);
-            this.events.modify.done(this.delegates.selectHandler);
-            this.events.remove.done(this.delegates.selectHandler);
+            this.events.insert.done(this.delegates.insertHandler);
+            this.events.modify.done(this.delegates.modifyHandler);
+            this.events.remove.done(this.delegates.removeHandler);
+            this.events.select.done(this.delegates.selectHandler);
 
             var handlerAdd: Function = this.delegates.btnAddHandler;
 
@@ -103,6 +107,8 @@ module ELang {
             };
 
             this.createContent();
+
+            this.element.data("elang-edit", jQuery.proxy(this.processCommand, this));
         }
 
         private createContent(): void {
@@ -146,6 +152,8 @@ module ELang {
         }
         private _onRemove(): void {
         }
+        private _onSelect(): void {
+        }
 
         private _onInsertCallback(): void {
         }
@@ -154,6 +162,9 @@ module ELang {
         }
 
         private _onRemoveCallback(): void {
+        }
+
+        private _onSelectCallback(): void {
         }
 
         private _insert(): void {
@@ -167,5 +178,39 @@ module ELang {
         private _remove(): void {
             this.events.remove.resolve();
         }
+
+        private _select(): void {
+            this.events.select.resolve();
+        }
     }
 }
+
+(function (jQuery) {
+    jQuery.fn.elangEdit = function (options?: any, command?: string) {
+        var result: JQuery = this;
+        var isFirstOnly: bool = true;
+        
+        for (var i = 0; i < result.length; i++) {
+            var el: HTMLElement = result[i];
+            var fn: Function = el["elang-edit"];  // elang-edit.processCommand()
+
+            if (command && (typeof (command) == "string")) {
+                if (jQuery.isFunction(fn)) {
+                    fn(command);
+                }
+            }
+            else {
+                if (!fn) {
+                    var elangEdit: IELangEdit = new ELang.ELangEdit();
+                    elangEdit.initialize(el, options);
+                }
+            }
+
+            if (isFirstOnly) {
+                break;
+            }
+        }
+
+        return result;
+    };
+})(jQuery);
