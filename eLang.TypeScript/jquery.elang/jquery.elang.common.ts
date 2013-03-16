@@ -64,6 +64,9 @@ module ELang {
 
             // result label
             result.find("span").attr("id", this.defaults.resultHeadLabel);
+
+            // set labels
+            ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
         }
 
         public processCommand(command: string): JQuery {

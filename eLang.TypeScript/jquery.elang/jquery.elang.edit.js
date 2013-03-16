@@ -93,7 +93,7 @@ var ELang;
         ELangEdit.prototype.createContent = function () {
             _super.prototype.createContent.call(this);
             var contentDiv = this.element.next("div");
-            var resultSelector = "." + this.defaults.resultCSS.split("")[0];
+            var resultSelector = "." + this.defaults.resultCSS.split(" ")[0];
             var result = contentDiv.find(resultSelector);
             // edit panel
             var form = jQuery(this.defaults.editFormHtml);

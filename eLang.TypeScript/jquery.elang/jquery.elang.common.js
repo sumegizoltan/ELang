@@ -46,6 +46,8 @@ var ELang;
             this.element.append(head);
             // result label
             result.find("span").attr("id", this.defaults.resultHeadLabel);
+            // set labels
+            ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
         };
         ELangBase.prototype.processCommand = function (command) {
             if(command) {

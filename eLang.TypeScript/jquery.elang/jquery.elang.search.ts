@@ -102,7 +102,7 @@ module ELang {
             super.createContent();
 
             var contentDiv: JQuery = this.element.next("div");
-            var resultSelector: string = "." + this.defaults.resultCSS.split("")[0];
+            var resultSelector: string = "." + this.defaults.resultCSS.split(" ")[0];
             var result: JQuery = contentDiv.find(resultSelector);
 
             // search direction
