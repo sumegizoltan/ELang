@@ -19,17 +19,23 @@ module ELang {
         public contentInnerHtml: string;
         public radioGroupHtml: string;
         public radioButtonHtml: string;
+        public headLabelHtml: string;
+        public resultHeadLabelHtml: string;
+        public resultHtml: string;
         public headLabel: string;
         public resultHeadLabel: string;
 
         constructor() {
-            this.contentCSS = "ui-widget-content";
+            this.contentCSS = "";
             this.resultCSS = "result";
             this.resultHeadCSS = "ui-widget-header ui-corner-all";
             this.contentInnerCSS = "content";
             this.contentInnerHtml = '<div></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+            this.headLabelHtml = '<span class="label label-info"></span>';
+            this.resultHeadLabelHtml = '<span class="label"></span>';
+            this.resultHtml = '<div><div></div></div>';
         }
     }
 
@@ -52,30 +58,54 @@ module ELang {
 
         public createContent(): void {
             var contentDiv: JQuery = this.element.next("div");
-            var result: JQuery = jQuery("<div><div><span></span></div></div>");
+            var result: JQuery = jQuery(this.defaults.resultHtml);
+            var resultLabel: JQuery = jQuery(this.defaults.resultHeadLabelHtml);
 
+            resultLabel.attr("id", this.defaults.resultHeadLabel);
             contentDiv.addClass(this.defaults.contentCSS);
             result.addClass(this.defaults.resultCSS);
-            result.children().addClass(this.defaults.resultHeadCSS);
+            result.children()
+                .addClass(this.defaults.resultHeadCSS)
+                .append(resultLabel);
 
             if (this.defaults.contentInnerHtml) {
                 contentDiv = jQuery(this.defaults.contentInnerHtml).appendTo(contentDiv);
                 contentDiv.addClass(this.defaults.contentInnerCSS);
             }
 
+            contentDiv = this.getLastChild(contentDiv);
             contentDiv.append(result);
 
             // head label
-            var head: JQuery = jQuery("<span></span>");
+            var head: JQuery = jQuery(this.defaults.headLabelHtml);
 
             head.attr("id", this.defaults.headLabel);
             this.element.append(head);
 
-            // result label
-            result.find("span").attr("id", this.defaults.resultHeadLabel);
-
             // set labels
             ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
+        }
+
+        public appendAsLastChild(node: JQuery, element: JQuery): JQuery {
+            var parent: JQuery = this.getLastChild(node);
+
+            parent.append(element);
+
+            return element;
+        }
+
+        public getLastChild(node: JQuery): JQuery {
+            var parent: JQuery = node;
+            var child: JQuery = parent.children(":first");
+
+            while ("0" in child) {
+                child = parent.children(":first");
+                if ("0" in child) {
+                    parent = child;
+                }
+            }
+
+            return parent;
         }
 
         public processCommand(command: string): JQuery {

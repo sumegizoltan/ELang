@@ -26,6 +26,7 @@
 						  { padding: 3px 0px 3px 0px; margin: 10px 5px 0px 5px; }
 		.panel            { padding: 10px 0px 10px 0px; margin: 0px 5px 0px 5px; }
 		.langmenu		  { height: 20px; }
+        form              { margin-top: 3px; }
 	</style>
 
     <script type="text/javascript">
@@ -42,7 +43,11 @@
             $("h3.search").elangSearch();
             $("h3.edit").elangEdit();
 
-            $("#accordion").accordion({ header: "h3", active: 0 });
+            $("#accordion")
+                .accordion({
+                    header: "h3", active: 0
+                })
+                .removeClass("ui-widget");
 
         });
     </script>
@@ -50,9 +55,9 @@
 <body>
     <h1>TypeScript HTML App</h1>
 
-    <div class="ui-widget content">
-			<div class="ui-widget-header ui-corner-all">
-				<span id="lblPageHeader">eLang - Nyelvtanulás</span>
+    <div class="content">
+			<div class="ui-widget-content ui-corner-all">
+				<span class="label" id="lblPageHeader">eLang - Nyelvtanulás</span>
 			</div>
 			<div class="langmenu ui-menu">
 				<img src="img/en.png" class="ui-menu-icon ui-button lang-en" alt="en" />

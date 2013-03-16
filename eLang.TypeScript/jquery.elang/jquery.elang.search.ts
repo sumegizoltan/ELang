@@ -110,12 +110,14 @@ module ELang {
             var btn1: JQuery = jQuery(this.defaults.radioButtonHtml);
             var btn2: JQuery = jQuery(this.defaults.radioButtonHtml);
 
+            var radioIn: JQuery = this.getLastChild(radio);
+
             btn1.find("span").attr("id", this.defaults.directionExpressionsLabel);
             btn2.find("span").attr("id", this.defaults.directionMeaningsLabel);
             btn1.click(this.delegates.langDirectionClickHandler);
             btn2.click(this.delegates.langDirectionClickHandler);
-            radio.append(btn1);
-            radio.append(btn2);
+            radioIn.append(btn1);
+            radioIn.append(btn2);
             result.before(radio);
             ELangCommon.setLang(ELangCommon.resource.selectedLang, radio);
 
@@ -127,10 +129,12 @@ module ELang {
             var input: JQuery = jQuery(this.defaults.searchFieldHtml);
             var search: JQuery = jQuery(this.defaults.searchButtonHtml);
 
+            var formIn: JQuery = this.getLastChild(form);
+
             search.find("span").attr("id", this.defaults.searchButtonLabel);
             search.click(this.delegates.searchClickHandler);
-            form.append(input);
-            form.append(search);
+            formIn.append(input);
+            formIn.append(search);
             result.before(form);
 
             // set labels

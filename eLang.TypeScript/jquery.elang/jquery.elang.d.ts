@@ -106,6 +106,9 @@ interface IELangBaseDefaults {
     contentInnerHtml: string;
     radioGroupHtml: string;
     radioButtonHtml: string;
+    headLabelHtml: string;
+    resultHeadLabelHtml: string;
+    resultHtml: string;
     headLabel: string;
     resultHeadLabel: string;
 }
@@ -123,6 +126,8 @@ interface IELangBase {
 
     createContent(): void;
 
+    appendAsLastChild(node: JQuery, element: JQuery): JQuery;
+    getLastChild(node: JQuery): JQuery;
     processCommand(command: string): JQuery;
     setOptions(options: any): void;
 }

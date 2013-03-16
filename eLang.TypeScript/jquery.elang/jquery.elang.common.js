@@ -9,13 +9,16 @@ var ELang;
     // ELangBase
     var ELangBaseDefaults = (function () {
         function ELangBaseDefaults() {
-            this.contentCSS = "ui-widget-content";
+            this.contentCSS = "";
             this.resultCSS = "result";
             this.resultHeadCSS = "ui-widget-header ui-corner-all";
             this.contentInnerCSS = "content";
             this.contentInnerHtml = '<div></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+            this.headLabelHtml = '<span class="label label-info"></span>';
+            this.resultHeadLabelHtml = '<span class="label"></span>';
+            this.resultHtml = '<div><div></div></div>';
         }
         return ELangBaseDefaults;
     })();
@@ -37,23 +40,40 @@ var ELang;
         };
         ELangBase.prototype.createContent = function () {
             var contentDiv = this.element.next("div");
-            var result = jQuery("<div><div><span></span></div></div>");
+            var result = jQuery(this.defaults.resultHtml);
+            var resultLabel = jQuery(this.defaults.resultHeadLabelHtml);
+            resultLabel.attr("id", this.defaults.resultHeadLabel);
             contentDiv.addClass(this.defaults.contentCSS);
             result.addClass(this.defaults.resultCSS);
-            result.children().addClass(this.defaults.resultHeadCSS);
+            result.children().addClass(this.defaults.resultHeadCSS).append(resultLabel);
             if(this.defaults.contentInnerHtml) {
                 contentDiv = jQuery(this.defaults.contentInnerHtml).appendTo(contentDiv);
                 contentDiv.addClass(this.defaults.contentInnerCSS);
             }
+            contentDiv = this.getLastChild(contentDiv);
             contentDiv.append(result);
             // head label
-            var head = jQuery("<span></span>");
+            var head = jQuery(this.defaults.headLabelHtml);
             head.attr("id", this.defaults.headLabel);
             this.element.append(head);
-            // result label
-            result.find("span").attr("id", this.defaults.resultHeadLabel);
             // set labels
             ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
+        };
+        ELangBase.prototype.appendAsLastChild = function (node, element) {
+            var parent = this.getLastChild(node);
+            parent.append(element);
+            return element;
+        };
+        ELangBase.prototype.getLastChild = function (node) {
+            var parent = node;
+            var child = parent.children(":first");
+            while("0" in child) {
+                child = parent.children(":first");
+                if("0" in child) {
+                    parent = child;
+                }
+            }
+            return parent;
         };
         ELangBase.prototype.processCommand = function (command) {
             if(command) {

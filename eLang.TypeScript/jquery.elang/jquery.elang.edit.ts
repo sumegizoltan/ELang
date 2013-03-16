@@ -127,13 +127,19 @@ module ELang {
             var labelKey: string = ELangCommon.getLabel(this.defaults.editKeyLabel);
             var labelValue: string = ELangCommon.getLabel(this.defaults.editValueLabel);
 
-            keyField.find("input[placeholder]").attr("placeholder", labelKey);
-            valueField.find("input[placeholder]").attr("placeholder", labelValue);
+            var formIn: JQuery = this.getLastChild(form);
+
+            keyField.find("input[placeholder]")
+                .attr("id", this.defaults.editKeyLabel)
+                .attr("placeholder", labelKey);
+            valueField.find("input[placeholder]")
+                .attr("id", this.defaults.editValueLabel)
+                .attr("placeholder", labelValue);
             add.find("span").attr("id", this.defaults.addButtonLabel);
             add.click(this.delegates.btnAddClickHandler);
-            form.append(keyField);
-            form.append(valueField);
-            form.append(add);
+            formIn.append(keyField);
+            formIn.append(valueField);
+            formIn.append(add);
             result.before(form);
 
             // set labels
