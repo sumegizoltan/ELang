@@ -54,7 +54,7 @@ module ELang {
             this.headLabel = "lblEditHead";
             this.resultHeadLabel = "lblEditedExpressionsHead";
             this.editFormHtml = '<form class="form-search"><div class="controls controls-row"></div></form>';
-            this.editFieldHtml = '<input class="input-large span3" type="text" placeholder="-" />';
+            this.editFieldHtml = '<input class="input-large span2" type="text" placeholder="-" />';
             this.addButtonHtml = '<button type="submit" class="btn btn-primary span0"><span></span></button>';
             this.addButtonLabel = "lblAdd";
             this.editKeyLabel = "lblEditKeyField";
@@ -116,7 +116,7 @@ module ELang {
 
             var contentDiv: JQuery = this.element.next("div");
             var resultSelector: string = "." + this.defaults.resultCSS.split(" ")[0];
-            var result: JQuery = contentDiv.find(resultSelector);
+            var result: JQuery = contentDiv.find("*").filter(resultSelector);
 
             // edit panel
             var form: JQuery = jQuery(this.defaults.editFormHtml);
@@ -129,13 +129,15 @@ module ELang {
 
             var formIn: JQuery = this.getLastChild(form);
 
-            keyField.find("input[placeholder]")
+            keyField.add(keyField.find("*"))
+                .filter("input[placeholder]")
                 .attr("id", this.defaults.editKeyLabel)
                 .attr("placeholder", labelKey);
-            valueField.find("input[placeholder]")
+            valueField.add(valueField.find("*"))
+                .filter("input[placeholder]")
                 .attr("id", this.defaults.editValueLabel)
                 .attr("placeholder", labelValue);
-            add.find("span").attr("id", this.defaults.addButtonLabel);
+            add.add(add.find("*")).filter("span").attr("id", this.defaults.addButtonLabel);
             add.click(this.delegates.btnAddClickHandler);
             formIn.append(keyField);
             formIn.append(valueField);

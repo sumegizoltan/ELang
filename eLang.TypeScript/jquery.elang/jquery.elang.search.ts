@@ -103,7 +103,7 @@ module ELang {
 
             var contentDiv: JQuery = this.element.next("div");
             var resultSelector: string = "." + this.defaults.resultCSS.split(" ")[0];
-            var result: JQuery = contentDiv.find(resultSelector);
+            var result: JQuery = contentDiv.find("*").filter(resultSelector);
 
             // search direction
             var radio: JQuery = jQuery(this.defaults.radioGroupHtml);
@@ -112,8 +112,8 @@ module ELang {
 
             var radioIn: JQuery = this.getLastChild(radio);
 
-            btn1.find("span").attr("id", this.defaults.directionExpressionsLabel);
-            btn2.find("span").attr("id", this.defaults.directionMeaningsLabel);
+            btn1.add(btn1.find("*")).filter("span").attr("id", this.defaults.directionExpressionsLabel);
+            btn2.add(btn2.find("*")).filter("span").attr("id", this.defaults.directionMeaningsLabel);
             btn1.click(this.delegates.langDirectionClickHandler);
             btn2.click(this.delegates.langDirectionClickHandler);
             radioIn.append(btn1);
@@ -131,7 +131,7 @@ module ELang {
 
             var formIn: JQuery = this.getLastChild(form);
 
-            search.find("span").attr("id", this.defaults.searchButtonLabel);
+            search.add(search.find("*")).filter("span").attr("id", this.defaults.searchButtonLabel);
             search.click(this.delegates.searchClickHandler);
             formIn.append(input);
             formIn.append(search);
@@ -145,7 +145,8 @@ module ELang {
         }
 
         private _onDirectionClick(eSrc: HTMLElement): void {
-            var id: string = jQuery(eSrc).find("span").attr("id");
+            var btn: JQuery = jQuery(eSrc);
+            var id: string = btn.add(btn.find("*")).filter("span[id]").attr("id");
             this.isSearchInExp = (id == this.defaults.directionExpressionsLabel);
         }
 

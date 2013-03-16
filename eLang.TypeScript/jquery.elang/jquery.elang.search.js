@@ -85,14 +85,14 @@ var ELang;
             _super.prototype.createContent.call(this);
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split(" ")[0];
-            var result = contentDiv.find(resultSelector);
+            var result = contentDiv.find("*").filter(resultSelector);
             // search direction
             var radio = jQuery(this.defaults.radioGroupHtml);
             var btn1 = jQuery(this.defaults.radioButtonHtml);
             var btn2 = jQuery(this.defaults.radioButtonHtml);
             var radioIn = this.getLastChild(radio);
-            btn1.find("span").attr("id", this.defaults.directionExpressionsLabel);
-            btn2.find("span").attr("id", this.defaults.directionMeaningsLabel);
+            btn1.add(btn1.find("*")).filter("span").attr("id", this.defaults.directionExpressionsLabel);
+            btn2.add(btn2.find("*")).filter("span").attr("id", this.defaults.directionMeaningsLabel);
             btn1.click(this.delegates.langDirectionClickHandler);
             btn2.click(this.delegates.langDirectionClickHandler);
             radioIn.append(btn1);
@@ -106,7 +106,7 @@ var ELang;
             var input = jQuery(this.defaults.searchFieldHtml);
             var search = jQuery(this.defaults.searchButtonHtml);
             var formIn = this.getLastChild(form);
-            search.find("span").attr("id", this.defaults.searchButtonLabel);
+            search.add(search.find("*")).filter("span").attr("id", this.defaults.searchButtonLabel);
             search.click(this.delegates.searchClickHandler);
             formIn.append(input);
             formIn.append(search);
@@ -117,7 +117,8 @@ var ELang;
             //TODO typeahead init
                     };
         ELangSearch.prototype._onDirectionClick = function (eSrc) {
-            var id = jQuery(eSrc).find("span").attr("id");
+            var btn = jQuery(eSrc);
+            var id = btn.add(btn.find("*")).filter("span[id]").attr("id");
             this.isSearchInExp = (id == this.defaults.directionExpressionsLabel);
         };
         ELangSearch.prototype._onSelect = function (eSrc) {
