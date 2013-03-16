@@ -18,8 +18,6 @@
     <script type="text/javascript" src="jquery.elang/jquery.elang.lang.hu.js"></script>
     <style type="text/css">
 		body              { font-size: 80%; padding: 0 25% 0 25%; }
-		#pnlSearchResult  { height: 110px; }
-		#pnlEditResult	  { height: 200px; }
         #accordion div.ui-accordion-content div.content { height: 300px; }
 		.editfield 		  { width: 90%; }
 		div.langdirection, div.testvariant, div.testmode 
@@ -27,6 +25,8 @@
 		.panel            { padding: 10px 0px 10px 0px; margin: 0px 5px 0px 5px; }
 		.langmenu		  { height: 20px; }
         form              { margin-top: 3px; }
+        .result           { height: 150px; }
+        .result-head      { padding-top: 1px; padding-bottom: 1px; }
 	</style>
 
     <script type="text/javascript">
@@ -45,7 +45,15 @@
 
             $("#accordion")
                 .accordion({
-                    header: "h3", active: 0
+                    header: "h3",
+                    active: 0,
+                    create: function (event, ui) {
+                        ui.header.find("span[id]").addClass("label-info");
+                    },
+                    beforeActivate: function (event, ui) {
+                        ui.oldHeader.find("span[id]").removeClass("label-info");
+                        ui.newHeader.find("span[id]").addClass("label-info");
+                    }
                 })
                 .removeClass("ui-widget");
 

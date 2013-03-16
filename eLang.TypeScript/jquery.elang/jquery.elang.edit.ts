@@ -54,8 +54,8 @@ module ELang {
             this.headLabel = "lblEditHead";
             this.resultHeadLabel = "lblEditedExpressionsHead";
             this.editFormHtml = '<form class="form-search"><div class="controls controls-row"></div></form>';
-            this.editFieldHtml = '<input class="input-large" type="text" placeholder="-" />';
-            this.addButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
+            this.editFieldHtml = '<input class="input-large span3" type="text" placeholder="-" />';
+            this.addButtonHtml = '<button type="submit" class="btn btn-primary span0"><span></span></button>';
             this.addButtonLabel = "lblAdd";
             this.editKeyLabel = "lblEditKeyField";
             this.editValueLabel = "lblEditValueField";

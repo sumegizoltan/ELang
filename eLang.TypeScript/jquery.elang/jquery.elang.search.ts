@@ -46,7 +46,7 @@ module ELang {
             this.directionExpressionsLabel = "lblSearchInExpressions";
             this.directionMeaningsLabel = "lblSearchInMeanings";
             this.searchFormHtml = '<form class="form-search"><div class="input-append"></div></form>';
-            this.searchFieldHtml = '<input type="text" class="span2 search-query" />';
+            this.searchFieldHtml = '<input type="text" class="search-query" />';
             this.searchButtonHtml = '<button type="submit" class="btn"><span></span></button>';
             this.searchButtonLabel = "lblFind";
         }

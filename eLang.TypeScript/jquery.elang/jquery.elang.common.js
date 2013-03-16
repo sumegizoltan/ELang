@@ -10,14 +10,14 @@ var ELang;
     var ELangBaseDefaults = (function () {
         function ELangBaseDefaults() {
             this.contentCSS = "";
-            this.resultCSS = "result";
-            this.resultHeadCSS = "ui-widget-header ui-corner-all";
+            this.resultCSS = "result well well-small";
+            this.resultHeadCSS = "ui-widget-content ui-corner-all result-head";
             this.contentInnerCSS = "content";
             this.contentInnerHtml = '<div></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
-            this.headLabelHtml = '<span class="label label-info"></span>';
-            this.resultHeadLabelHtml = '<span class="label"></span>';
+            this.headLabelHtml = '<span class="label"></span>';
+            this.resultHeadLabelHtml = '<span class="label label-info"></span>';
             this.resultHtml = '<div><div></div></div>';
         }
         return ELangBaseDefaults;
