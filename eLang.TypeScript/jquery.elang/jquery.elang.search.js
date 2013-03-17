@@ -3,6 +3,15 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+// Type definitions for eLang.search 0.5.1
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../bootstrap/bootstrap.d.ts"/>
+/// <reference path="./jquery.elang.d.ts"/>
+/// <reference path="./jquery.elang.common.ts"/>
+/// <reference path="./jquery.elang.db.ts"/>
 var ELang;
 (function (ELang) {
     var ELangSearchEvents = (function () {
@@ -77,6 +86,7 @@ var ELang;
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split(" ")[0];
             var result = contentDiv.find("*").filter(resultSelector);
+            // search direction
             var radio = jQuery(this.defaults.radioGroupHtml);
             var btn1 = jQuery(this.defaults.radioButtonHtml);
             var btn2 = jQuery(this.defaults.radioButtonHtml);
@@ -91,6 +101,7 @@ var ELang;
             ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, radio);
             radio.button();
             btn1.click();
+            // search panel
             var form = jQuery(this.defaults.searchFormHtml);
             var input = jQuery(this.defaults.searchFieldHtml);
             var search = jQuery(this.defaults.searchButtonHtml);
@@ -100,8 +111,11 @@ var ELang;
             formIn.append(input);
             formIn.append(search);
             result.before(form);
+            // set labels
             ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, contentDiv);
-        };
+            // init typeahead for input
+            //TODO typeahead init
+                    };
         ELangSearch.prototype._onDirectionClick = function (eSrc) {
             var btn = jQuery(eSrc);
             var id = btn.add(btn.find("*")).filter("span[id]").attr("id");
@@ -117,7 +131,8 @@ var ELang;
             }
         };
         ELangSearch.prototype._onSelectCallback = function () {
-        };
+            //TODO - show selected element
+                    };
         ELangSearch.prototype._select = function (eSrc) {
             this.events.select.resolve(eSrc);
         };
@@ -127,25 +142,8 @@ var ELang;
 })(ELang || (ELang = {}));
 (function (jQuery) {
     jQuery.fn.elangSearch = function (options, command) {
-        var result = this;
-        var isFirstOnly = true;
-        for(var i = 0; i < result.length; i++) {
-            var el = result[i];
-            var fn = el["elang-search"];
-            if(command && (typeof (command) == "string")) {
-                if(jQuery.isFunction(fn)) {
-                    fn(command);
-                }
-            } else {
-                if(!fn) {
-                    var elangSearch = new ELang.ELangSearch();
-                    elangSearch.initialize(el, options);
-                }
-            }
-            if(isFirstOnly) {
-                break;
-            }
-        }
+        var result = new ELang.FnJQuery(this, options, command, "ELangSearch", "elang-search");
         return result;
     };
 })(jQuery);
+//@ sourceMappingURL=jquery.elang.search.js.map

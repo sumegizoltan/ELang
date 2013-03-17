@@ -1,4 +1,4 @@
-﻿// Type definitions for eLang.edit 0.4.1
+﻿// Type definitions for eLang.edit 0.5.1
 // Project: https://github.com/sumegizoltan/ELang/
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
@@ -195,29 +195,7 @@ module ELang {
 
 (function (jQuery) {
     jQuery.fn.elangEdit = function (options?: any, command?: string) {
-        var result: JQuery = this;
-        var isFirstOnly: bool = true;
-        
-        for (var i = 0; i < result.length; i++) {
-            var el: HTMLElement = result[i];
-            var fn: Function = el["elang-edit"];  // elang-edit.processCommand()
-
-            if (command && (typeof (command) == "string")) {
-                if (jQuery.isFunction(fn)) {
-                    fn(command);
-                }
-            }
-            else {
-                if (!fn) {
-                    var elangEdit: IELangEdit = new ELang.ELangEdit();
-                    elangEdit.initialize(el, options);
-                }
-            }
-
-            if (isFirstOnly) {
-                break;
-            }
-        }
+        var result: JQuery = new ELang.FnJQuery(this, options, command, "ELangEdit", "elang-edit");
 
         return result;
     };

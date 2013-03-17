@@ -1,4 +1,11 @@
-﻿var ELang;
+﻿// Type definitions for eLang.lang.hu 0.5.1
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="./jquery.elang.d.ts" />
+/// <reference path="./jquery.elang.common.ts"/>
+var ELang;
 (function (ELang) {
     var resource = new ELang.PageLabels();
     resource.lblTitle = "eLang - Nyelvtanulás";
@@ -25,3 +32,4 @@
         hu: resource
     });
 })(ELang || (ELang = {}));
+//@ sourceMappingURL=jquery.elang.lang.hu.js.map

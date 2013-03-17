@@ -1,5 +1,12 @@
+// Type definitions for eLang.common 0.5.1
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="./jquery.elang.d.ts"/>
 var ELang;
 (function (ELang) {
+    // ELangBase
     var ELangBaseDefaults = (function () {
         function ELangBaseDefaults() {
             this.contentCSS = "";
@@ -45,9 +52,11 @@ var ELang;
             }
             contentDiv = this.getLastChild(contentDiv);
             contentDiv.append(result);
+            // head label
             var head = jQuery(this.defaults.headLabelHtml);
             head.attr("id", this.defaults.headLabel);
             this.element.append(head);
+            // set labels
             ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
         };
         ELangBase.prototype.appendAsLastChild = function (node, element) {
@@ -79,6 +88,7 @@ var ELang;
         return ELangBase;
     })();
     ELang.ELangBase = ELangBase;    
+    // ELangCommon
     var PageResource = (function () {
         function PageResource() {
             this.lang = {
@@ -134,4 +144,53 @@ var ELang;
         return ELangCommon;
     })();
     ELang.ELangCommon = ELangCommon;    
+    /**
+    * interfaces and classes for jQuery.fn.__plugin
+    */
+    var FnNewInstance = (function () {
+        function FnNewInstance(el, options, pluginName) {
+            return this.createInstance(el, options, pluginName);
+        }
+        FnNewInstance.prototype.createInstance = function (el, options, pluginName) {
+            var element = null;
+            var plugin;
+            if(pluginName in ELang) {
+                plugin = new ELang[pluginName]();
+                element = plugin["initialize"](el, options);
+            }
+            return element;
+        };
+        return FnNewInstance;
+    })();
+    ELang.FnNewInstance = FnNewInstance;    
+    var FnJQuery = (function () {
+        function FnJQuery(context, options, command, pluginName, pluginDataAttribute) {
+            return this.fnPlugin(context, options, command, pluginName, pluginDataAttribute);
+        }
+        FnJQuery.prototype.fnPlugin = function (context, options, command, pluginName, pluginDataAttribute) {
+            var result = context;
+            var isFirstOnly = true;
+            for(var i = 0; i < result.length; i++) {
+                var el = result[i];
+                var fn = el[pluginDataAttribute];// plugin.processCommand()
+                
+                if(command && (typeof (command) == "string")) {
+                    if(jQuery.isFunction(fn)) {
+                        fn(command);
+                    }
+                } else {
+                    if(!fn) {
+                        var instanceResult = new FnNewInstance(el, options, pluginName);
+                    }
+                }
+                if(isFirstOnly) {
+                    break;
+                }
+            }
+            return result;
+        };
+        return FnJQuery;
+    })();
+    ELang.FnJQuery = FnJQuery;    
 })(ELang || (ELang = {}));
+//@ sourceMappingURL=jquery.elang.common.js.map

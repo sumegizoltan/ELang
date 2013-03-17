@@ -1,4 +1,4 @@
-﻿// Type definitions for eLang 0.4.1
+﻿// Type definitions for eLang 0.5.1
 // Project: https://github.com/sumegizoltan/ELang/
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
@@ -162,6 +162,7 @@ interface IELangSearch extends IELangBase {
     events: IELangSearchEvents;
     isSearchInExp: bool;
 
+    initialize(target: HTMLElement, options: any): void;
     createContent(): void;
 
     _onDirectionClick(eSrc: HTMLElement): void;
@@ -208,6 +209,7 @@ interface IELangEdit extends IELangBase {
     delegates: IELangEditDelegates;
     events: IELangEditEvents;
 
+    initialize(target: HTMLElement, options: any): void;
     createContent(): void;
 
     _onAddClick(key: HTMLInputElement, value: HTMLInputElement): void;
@@ -225,4 +227,42 @@ interface IELangEdit extends IELangBase {
     _modify(): void;
     _remove(): void;
     _select(): void;
+}
+
+// ELangTest
+
+interface IELangTestDefaults extends IELangBaseDefaults {
+    directionExpressionsLabel: string;
+    directionMeaningsLabel: string;
+    searchFormHtml: string;
+    searchFieldHtml: string;
+    searchButtonHtml: string;
+    searchButtonLabel: string;
+}
+
+interface IELangTestDelegates {
+}
+
+interface IELangTest extends IELangBase {
+    defaults: IELangTestDefaults;
+    delegates: IELangTestDelegates;
+
+    initialize(target: HTMLElement, options: any): void;
+    createContent(): void;
+}
+
+// interfaces for jQuery.fn.__plugin
+
+interface IFnNewInstance {
+    createInstance(el: HTMLElement,
+                   options: any,
+                   pluginName: string): JQuery;
+}
+
+interface IFnJQuery {
+    fnPlugin(context: JQuery,
+             options: any,
+             command: string,
+             pluginName: string,
+             pluginDataAttribute: string): JQuery;
 }

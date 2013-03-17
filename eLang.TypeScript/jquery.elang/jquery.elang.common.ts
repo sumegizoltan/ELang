@@ -1,4 +1,4 @@
-﻿// Type definitions for eLang.common 0.4.1
+﻿// Type definitions for eLang.common 0.5.1
 // Project: https://github.com/sumegizoltan/ELang/
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
@@ -201,6 +201,72 @@ module ELang {
                     }
                 });
             }
+        }
+    }
+ 
+    /**
+      * interfaces and classes for jQuery.fn.__plugin
+    */
+
+    export class FnNewInstance implements IFnNewInstance {
+        constructor(el: HTMLElement, options: any, pluginName: string) {
+            return this.createInstance(el, options, pluginName);
+        }
+
+        public createInstance(el: HTMLElement, options: any, pluginName: string): JQuery {
+            var element: JQuery = null;
+            var plugin: IELangBase;
+
+            if (pluginName in ELang) {
+                plugin = new ELang[pluginName]();
+
+                element = <JQuery>plugin["initialize"](el, options);
+            }
+
+            return element;
+        }
+    }
+
+    export class FnJQuery implements IFnJQuery {
+        constructor(context: JQuery,
+                    options: any,
+                    command: string,
+                    pluginName: string,
+                    pluginDataAttribute: string) {
+
+            return this.fnPlugin(context, options, command, pluginName, pluginDataAttribute);
+        }
+
+        public fnPlugin(context: JQuery,
+                        options: any,
+                        command: string,
+                        pluginName: string,
+                        pluginDataAttribute: string): JQuery {
+
+            var result: JQuery = context;
+            var isFirstOnly: bool = true;
+
+            for (var i = 0; i < result.length; i++) {
+                var el: HTMLElement = result[i];
+                var fn: Function = el[pluginDataAttribute];  // plugin.processCommand()
+
+                if (command && (typeof (command) == "string")) {
+                    if (jQuery.isFunction(fn)) {
+                        fn(command);
+                    }
+                }
+                else {
+                    if (!fn) {
+                        var instanceResult: JQuery = new FnNewInstance(el, options, pluginName);
+                    }
+                }
+
+                if (isFirstOnly) {
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

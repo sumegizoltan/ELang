@@ -1,4 +1,4 @@
-﻿// Type definitions for eLang.search 0.4.1
+﻿// Type definitions for eLang.search 0.5.1
 // Project: https://github.com/sumegizoltan/ELang/
 // Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
 // Definitions: 
@@ -176,29 +176,7 @@ module ELang {
 
 (function (jQuery) {
     jQuery.fn.elangSearch = function (options?: any, command?: string) {
-        var result: JQuery = this;
-        var isFirstOnly: bool = true;
-        
-        for (var i = 0; i < result.length; i++) {
-            var el: HTMLElement = result[i];
-            var fn: Function = el["elang-search"];  // elang-search.processCommand()
-
-            if (command && (typeof (command) == "string")) {
-                if (jQuery.isFunction(fn)) {
-                    fn(command);
-                }
-            }
-            else {
-                if (!fn) {
-                    var elangSearch: IELangSearch = new ELang.ELangSearch();
-                    elangSearch.initialize(el, options);
-                }
-            }
-
-            if (isFirstOnly) {
-                break;
-            }
-        }
+        var result: JQuery = new ELang.FnJQuery(this, options, command, "ELangSearch", "elang-search");
 
         return result;
     };

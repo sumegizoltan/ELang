@@ -121,6 +121,7 @@
     <Content Include="jquery.elang\jquery.elang.search.min.js">
       <DependentUpon>jquery.elang.search.ts</DependentUpon>
     </Content>
+    <Content Include="jquery.elang\jquery.elang.test.ts" />
     <Content Include="jquery\jquery.d.ts" />
     <Content Include="jquery.elang\jquery.elang.d.ts" />
     <Content Include="jquery.elang\jquery.elang.db.js">

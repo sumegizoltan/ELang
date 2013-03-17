@@ -3,6 +3,15 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+// Type definitions for eLang.edit 0.5.1
+// Project: https://github.com/sumegizoltan/ELang/
+// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
+// Definitions:
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="./jquery.elang.d.ts"/>
+/// <reference path="./jquery.elang.common.ts"/>
+/// <reference path="./jquery.elang.db.ts"/>
+/// <reference path="./jquery.elang.search.ts"/>
 var ELang;
 (function (ELang) {
     var ELangEditEvents = (function () {
@@ -86,6 +95,7 @@ var ELang;
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split(" ")[0];
             var result = contentDiv.find("*").filter(resultSelector);
+            // edit panel
             var form = jQuery(this.defaults.editFormHtml);
             var keyField = jQuery(this.defaults.editFieldHtml);
             var valueField = jQuery(this.defaults.editFieldHtml);
@@ -102,10 +112,14 @@ var ELang;
             formIn.append(valueField);
             formIn.append(add);
             result.before(form);
+            // set labels
             ELang.ELangCommon.setLang(langid, contentDiv);
         };
         ELangEdit.prototype._onAddClick = function (key, value) {
-        };
+            //TODO validate fields
+            //TODO update database
+            //TODO refresh list if required
+                    };
         ELangEdit.prototype._onInsert = function () {
         };
         ELangEdit.prototype._onModify = function () {
@@ -140,25 +154,8 @@ var ELang;
 })(ELang || (ELang = {}));
 (function (jQuery) {
     jQuery.fn.elangEdit = function (options, command) {
-        var result = this;
-        var isFirstOnly = true;
-        for(var i = 0; i < result.length; i++) {
-            var el = result[i];
-            var fn = el["elang-edit"];
-            if(command && (typeof (command) == "string")) {
-                if(jQuery.isFunction(fn)) {
-                    fn(command);
-                }
-            } else {
-                if(!fn) {
-                    var elangEdit = new ELang.ELangEdit();
-                    elangEdit.initialize(el, options);
-                }
-            }
-            if(isFirstOnly) {
-                break;
-            }
-        }
+        var result = new ELang.FnJQuery(this, options, command, "ELangEdit", "elang-edit");
         return result;
     };
 })(jQuery);
+//@ sourceMappingURL=jquery.elang.edit.js.map
