@@ -121,6 +121,12 @@
     <Content Include="jquery.elang\jquery.elang.search.min.js">
       <DependentUpon>jquery.elang.search.ts</DependentUpon>
     </Content>
+    <Content Include="jquery.elang\jquery.elang.test.js">
+      <DependentUpon>jquery.elang.test.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.test.min.js">
+      <DependentUpon>jquery.elang.test.ts</DependentUpon>
+    </Content>
     <Content Include="jquery.elang\jquery.elang.test.ts" />
     <Content Include="jquery\jquery.d.ts" />
     <Content Include="jquery.elang\jquery.elang.d.ts" />
@@ -164,6 +170,9 @@
     </Content>
     <Content Include="jquery.elang\jquery.elang.search.js.map">
       <DependentUpon>jquery.elang.search.ts</DependentUpon>
+    </Content>
+    <Content Include="jquery.elang\jquery.elang.test.js.map">
+      <DependentUpon>jquery.elang.test.ts</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

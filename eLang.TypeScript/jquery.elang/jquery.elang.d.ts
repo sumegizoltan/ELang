@@ -31,11 +31,23 @@ interface IPageLabels {
     lblRemove?: string;
     lblSearchInExpressions?: string;
     lblSearchInMeanings?: string;
+    lblSearchInExpressionsHlp?: string;
+    lblSearchInMeaningsHlp?: string;
     lblTestHead?: string;
     lblOrderedTest?: string;
     lblRandomlyTest?: string;
     lblTypedTest?: string;
     lblSelectedTest?: string;
+    lblWrittedTest?: string;
+    lblVoicedTest?: string;
+    lblStartTest?: string;
+    lblStopTest?: string;
+    lblTypedTestHlp?: string;
+    lblSelectedTestHlp?: string;
+    lblOrderedTestHlp?: string;
+    lblRandomlyTestHlp?: string;
+    lblWrittedTestHlp?: string;
+    lblVoicedTestHlp?: string;
 }
 
 interface ELangCommonStatic {
@@ -104,8 +116,10 @@ interface IELangBaseDefaults {
     resultCSS: string;
     resultHeadCSS: string;
     contentInnerHtml: string;
+    fluidRowHtml: string;
     radioGroupHtml: string;
     radioButtonHtml: string;
+    submitButtonHtml: string;
     headLabelHtml: string;
     resultHeadLabelHtml: string;
     resultHtml: string;
@@ -126,8 +140,16 @@ interface IELangBase {
 
     createContent(): void;
 
+    createRadioGroup(node: JQuery,
+                     isMethodAppend: bool,
+                     buttonNumber: number,
+                     defaultButton: number,
+                     btnLabels: string[],
+                     clickHandler: Function,
+                     btnTooltips?: string[]): void;
     appendAsLastChild(node: JQuery, element: JQuery): JQuery;
     getLastChild(node: JQuery): JQuery;
+    isRdoChecked(eSrc: HTMLElement, rdoId: string): bool;
     processCommand(command: string): JQuery;
     setOptions(options: any): void;
 }
@@ -135,11 +157,12 @@ interface IELangBase {
 // ELangSearch
 
 interface IELangSearchDefaults extends IELangBaseDefaults {
-    directionExpressionsLabel: string;
-    directionMeaningsLabel: string;
+    expressionsLabel: string;
+    expressionsTooltip: string;
+    meaningsLabel: string;
+    meaningsTooltip: string;
     searchFormHtml: string;
     searchFieldHtml: string;
-    searchButtonHtml: string;
     searchButtonLabel: string;
 }
 
@@ -232,15 +255,33 @@ interface IELangEdit extends IELangBase {
 // ELangTest
 
 interface IELangTestDefaults extends IELangBaseDefaults {
-    directionExpressionsLabel: string;
-    directionMeaningsLabel: string;
-    searchFormHtml: string;
-    searchFieldHtml: string;
-    searchButtonHtml: string;
-    searchButtonLabel: string;
+    formHtml: string;
+    startButtonLabel: string;
+    stopButtonLabel: string;
+    rdoTypedLabel: string;
+    rdoSelectedLabel: string;
+    rdoOrderedLabel: string;
+    rdoRandomlyLabel: string;
+    rdoWrittedLabel: string;
+    rdoVoicedLabel: string;
+    rdoTypedTooltip: string;
+    rdoSelectedTooltip: string;
+    rdoOrderedTooltip: string;
+    rdoRandomlyTooltip: string;
+    rdoWrittedTooltip: string;
+    rdoVoicedTooltip: string;
 }
 
 interface IELangTestDelegates {
+    startStopHandler: Function;
+
+    rdoVariantHandler: Function;
+    rdoModeHandler: Function;
+    rdoQuestionHandler: Function;
+
+    rdoVariantClickHandler: Function;
+    rdoModeClickHandler: Function;
+    rdoQuestionClickHandler: Function;
 }
 
 interface IELangTest extends IELangBase {
@@ -249,6 +290,11 @@ interface IELangTest extends IELangBase {
 
     initialize(target: HTMLElement, options: any): void;
     createContent(): void;
+
+    _onRdoVariantClick(eSrc: HTMLElement): void;
+    _onRdoModeClick(eSrc: HTMLElement): void;
+    _onRdoQuestionClick(eSrc: HTMLElement): void;
+    _onStartStopClick(): void;
 }
 
 // interfaces for jQuery.fn.__plugin

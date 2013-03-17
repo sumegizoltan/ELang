@@ -3,15 +3,6 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-// Type definitions for eLang.search 0.5.1
-// Project: https://github.com/sumegizoltan/ELang/
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
-// Definitions:
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../bootstrap/bootstrap.d.ts"/>
-/// <reference path="./jquery.elang.d.ts"/>
-/// <reference path="./jquery.elang.common.ts"/>
-/// <reference path="./jquery.elang.db.ts"/>
 var ELang;
 (function (ELang) {
     var ELangSearchEvents = (function () {
@@ -39,11 +30,12 @@ var ELang;
                 _super.call(this);
             this.headLabel = "lblFindHead";
             this.resultHeadLabel = "lblFindedExpressionsHead";
-            this.directionExpressionsLabel = "lblSearchInExpressions";
-            this.directionMeaningsLabel = "lblSearchInMeanings";
+            this.expressionsLabel = "lblSearchInExpressions";
+            this.meaningsLabel = "lblSearchInMeanings";
+            this.expressionsTooltip = "lblSearchInExpressionsHlp";
+            this.meaningsTooltip = "lblSearchInMeaningsHlp";
             this.searchFormHtml = '<form class="form-search"><div class="input-append"></div></form>';
             this.searchFieldHtml = '<input type="text" class="search-query" />';
-            this.searchButtonHtml = '<button type="submit" class="btn"><span></span></button>';
             this.searchButtonLabel = "lblFind";
         }
         return ELangSearchDefaults;
@@ -86,40 +78,26 @@ var ELang;
             var contentDiv = this.element.next("div");
             var resultSelector = "." + this.defaults.resultCSS.split(" ")[0];
             var result = contentDiv.find("*").filter(resultSelector);
-            // search direction
-            var radio = jQuery(this.defaults.radioGroupHtml);
-            var btn1 = jQuery(this.defaults.radioButtonHtml);
-            var btn2 = jQuery(this.defaults.radioButtonHtml);
-            var radioIn = this.getLastChild(radio);
-            btn1.add(btn1.find("*")).filter("span").attr("id", this.defaults.directionExpressionsLabel);
-            btn2.add(btn2.find("*")).filter("span").attr("id", this.defaults.directionMeaningsLabel);
-            btn1.click(this.delegates.langDirectionClickHandler);
-            btn2.click(this.delegates.langDirectionClickHandler);
-            radioIn.append(btn1);
-            radioIn.append(btn2);
-            result.before(radio);
-            ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, radio);
-            radio.button();
-            btn1.click();
-            // search panel
+            this.createRadioGroup(result, false, 2, 0, [
+                this.defaults.expressionsLabel, 
+                this.defaults.meaningsLabel
+            ], this.delegates.langDirectionClickHandler, [
+                this.defaults.expressionsTooltip, 
+                this.defaults.meaningsTooltip
+            ]);
             var form = jQuery(this.defaults.searchFormHtml);
             var input = jQuery(this.defaults.searchFieldHtml);
-            var search = jQuery(this.defaults.searchButtonHtml);
+            var search = jQuery(this.defaults.submitButtonHtml);
             var formIn = this.getLastChild(form);
             search.add(search.find("*")).filter("span").attr("id", this.defaults.searchButtonLabel);
             search.click(this.delegates.searchClickHandler);
             formIn.append(input);
             formIn.append(search);
             result.before(form);
-            // set labels
             ELang.ELangCommon.setLang(ELang.ELangCommon.resource.selectedLang, contentDiv);
-            // init typeahead for input
-            //TODO typeahead init
-                    };
+        };
         ELangSearch.prototype._onDirectionClick = function (eSrc) {
-            var btn = jQuery(eSrc);
-            var id = btn.add(btn.find("*")).filter("span[id]").attr("id");
-            this.isSearchInExp = (id == this.defaults.directionExpressionsLabel);
+            this.isSearchInExp = this.isRdoChecked(eSrc, this.defaults.expressionsLabel);
         };
         ELangSearch.prototype._onSelect = function (eSrc) {
             var id = eSrc.value;
@@ -131,8 +109,7 @@ var ELang;
             }
         };
         ELangSearch.prototype._onSelectCallback = function () {
-            //TODO - show selected element
-                    };
+        };
         ELangSearch.prototype._select = function (eSrc) {
             this.events.select.resolve(eSrc);
         };
@@ -146,4 +123,3 @@ var ELang;
         return result;
     };
 })(jQuery);
-//@ sourceMappingURL=jquery.elang.search.js.map

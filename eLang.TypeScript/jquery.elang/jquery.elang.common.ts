@@ -5,6 +5,7 @@
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../bootstrap/bootstrap.d.ts"/>
 /// <reference path="./jquery.elang.d.ts"/>
 
 module ELang {
@@ -17,8 +18,10 @@ module ELang {
         public resultCSS: string;
         public resultHeadCSS: string;
         public contentInnerHtml: string;
+        public fluidRowHtml: string;
         public radioGroupHtml: string;
         public radioButtonHtml: string;
+        public submitButtonHtml: string;
         public headLabelHtml: string;
         public resultHeadLabelHtml: string;
         public resultHtml: string;
@@ -31,8 +34,10 @@ module ELang {
             this.resultHeadCSS = "ui-widget-content ui-corner-all result-head";
             this.contentInnerCSS = "content";
             this.contentInnerHtml = '<div></div>';
+            this.fluidRowHtml = '<div class="row-fluid"></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+            this.submitButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
             this.headLabelHtml = '<span class="label"></span>';
             this.resultHeadLabelHtml = '<span class="label label-info"></span>';
             this.resultHtml = '<div><div></div></div>';
@@ -85,6 +90,45 @@ module ELang {
             // set labels
             ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
         }
+        
+        public createRadioGroup(node: JQuery,
+                                isMethodAppend: bool,
+                                buttonNumber: number,
+                                defaultButton: number,
+                                btnLabels: string[],
+                                clickHandler: Function,
+                                btnTooltips?: string[]): void {
+
+            var radio: JQuery = jQuery(this.defaults.radioGroupHtml);
+            var radioIn: JQuery = this.getLastChild(radio);
+
+            for (var i = 0; i < buttonNumber; i++) {
+                var btn: JQuery = jQuery(this.defaults.radioButtonHtml);
+                btn.add(btn.find("*")).filter("span").attr("id", btnLabels[i]);
+                btn.click(clickHandler);
+
+                if (btnTooltips) {
+                    btn.attr("title", "").attr("title-label", btnTooltips[i]);
+                }
+
+                radioIn.append(btn);
+            }
+
+            if (isMethodAppend) {
+                node.append(radio);
+            }
+            else {
+                node.before(radio);
+            }
+            ELangCommon.setLang(ELangCommon.resource.selectedLang, radio);
+
+            radio.button();
+            radioIn.children(':eq(' + defaultButton + ')').click();
+
+            if (btnTooltips) {
+                radioIn.children('[title-label]').tooltip({ placement: 'bottom', delay: { show: 200, hide: 100 } });
+            }
+        }
 
         public appendAsLastChild(node: JQuery, element: JQuery): JQuery {
             var parent: JQuery = this.getLastChild(node);
@@ -106,6 +150,12 @@ module ELang {
             }
 
             return parent;
+        }
+
+        public isRdoChecked(eSrc: HTMLElement, rdoId: string): bool {
+            var btn: JQuery = jQuery(eSrc);
+            var id: string = btn.add(btn.find("*")).filter("span[id]").attr("id");
+            return (id == rdoId);
         }
 
         public processCommand(command: string): JQuery {
@@ -148,11 +198,23 @@ module ELang {
         public lblRemove: string;
         public lblSearchInExpressions: string;
         public lblSearchInMeanings: string;
+        public lblSearchInExpressionsHlp: string;
+        public lblSearchInMeaningsHlp: string;
         public lblTestHead: string;
         public lblOrderedTest: string;
         public lblRandomlyTest: string;
         public lblTypedTest: string;
         public lblSelectedTest: string;
+        public lblWrittedTest: string;
+        public lblVoicedTest: string;
+        public lblStartTest: string;
+        public lblStopTest: string;
+        public lblTypedTestHlp: string;
+        public lblSelectedTestHlp: string;
+        public lblOrderedTestHlp: string;
+        public lblRandomlyTestHlp: string;
+        public lblWrittedTestHlp: string;
+        public lblVoicedTestHlp: string;
     }
 
     export class ELangCommon {
@@ -177,16 +239,31 @@ module ELang {
 
                 var elements: JQuery;
                 if (node) {
-                    elements = node.find('*').filter('[id*="lbl"], [id*="btn"]');
+                    elements = node.find('*').filter('[id*="lbl"], [id*="btn"], [title-label]');
                 }
                 else {
-                    elements = jQuery('[id*="lbl"], [id*="btn"]');
+                    elements = jQuery('[id*="lbl"], [id*="btn"], [title-label]');
                 }
 
                 elements.each(function () {
                     var el: HTMLElement = this;
-                    
+
+                    if (el.hasAttribute("title-label")) {
+                        var title: string = el.getAttribute("title-label");
+                        var attribute: string = (el.hasAttribute("data-original-title")) ? 
+                                                "data-original-title" : 
+                                                "title";
+
+                        if (title in resource.lang[langid]) {
+                            el.setAttribute(attribute, resource.lang[langid][title]);
+                        }
+                        else {
+                            el.setAttribute(attribute, "");
+                        }
+                    }
+
                     if (el.id in resource.lang[langid]) {
+                        // text or placeholder
                         if (/INPUT/.test(el.tagName)) {
                             if ((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {
                                 el.setAttribute("placeholder", resource.lang[langid][el.id]);

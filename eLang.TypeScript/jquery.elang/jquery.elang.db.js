@@ -1,9 +1,3 @@
-// Type definitions for eLang.db 0.5.1
-// Project: https://github.com/sumegizoltan/ELang/
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
-// Definitions:
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.elang.d.ts" />
 var ELang;
 (function (ELang) {
     var ELangDBEvents = (function () {
@@ -126,4 +120,3 @@ var ELang;
     })();
     ELang.ELangDB = ELangDB;    
 })(ELang || (ELang = {}));
-//@ sourceMappingURL=jquery.elang.db.js.map

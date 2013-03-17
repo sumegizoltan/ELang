@@ -1,12 +1,5 @@
-// Type definitions for eLang.common 0.5.1
-// Project: https://github.com/sumegizoltan/ELang/
-// Definitions by: Zoltan Sumegi <https://github.com/sumegizoltan/>
-// Definitions:
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="./jquery.elang.d.ts"/>
 var ELang;
 (function (ELang) {
-    // ELangBase
     var ELangBaseDefaults = (function () {
         function ELangBaseDefaults() {
             this.contentCSS = "";
@@ -14,8 +7,10 @@ var ELang;
             this.resultHeadCSS = "ui-widget-content ui-corner-all result-head";
             this.contentInnerCSS = "content";
             this.contentInnerHtml = '<div></div>';
+            this.fluidRowHtml = '<div class="row-fluid"></div>';
             this.radioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this.radioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+            this.submitButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
             this.headLabelHtml = '<span class="label"></span>';
             this.resultHeadLabelHtml = '<span class="label label-info"></span>';
             this.resultHtml = '<div><div></div></div>';
@@ -52,12 +47,40 @@ var ELang;
             }
             contentDiv = this.getLastChild(contentDiv);
             contentDiv.append(result);
-            // head label
             var head = jQuery(this.defaults.headLabelHtml);
             head.attr("id", this.defaults.headLabel);
             this.element.append(head);
-            // set labels
             ELangCommon.setLang(ELangCommon.resource.selectedLang, this.element);
+        };
+        ELangBase.prototype.createRadioGroup = function (node, isMethodAppend, buttonNumber, defaultButton, btnLabels, clickHandler, btnTooltips) {
+            var radio = jQuery(this.defaults.radioGroupHtml);
+            var radioIn = this.getLastChild(radio);
+            for(var i = 0; i < buttonNumber; i++) {
+                var btn = jQuery(this.defaults.radioButtonHtml);
+                btn.add(btn.find("*")).filter("span").attr("id", btnLabels[i]);
+                btn.click(clickHandler);
+                if(btnTooltips) {
+                    btn.attr("title", "").attr("title-label", btnTooltips[i]);
+                }
+                radioIn.append(btn);
+            }
+            if(isMethodAppend) {
+                node.append(radio);
+            } else {
+                node.before(radio);
+            }
+            ELangCommon.setLang(ELangCommon.resource.selectedLang, radio);
+            radio.button();
+            radioIn.children(':eq(' + defaultButton + ')').click();
+            if(btnTooltips) {
+                radioIn.children('[title-label]').tooltip({
+                    placement: 'bottom',
+                    delay: {
+                        show: 200,
+                        hide: 100
+                    }
+                });
+            }
         };
         ELangBase.prototype.appendAsLastChild = function (node, element) {
             var parent = this.getLastChild(node);
@@ -75,6 +98,11 @@ var ELang;
             }
             return parent;
         };
+        ELangBase.prototype.isRdoChecked = function (eSrc, rdoId) {
+            var btn = jQuery(eSrc);
+            var id = btn.add(btn.find("*")).filter("span[id]").attr("id");
+            return (id == rdoId);
+        };
         ELangBase.prototype.processCommand = function (command) {
             if(command) {
             }
@@ -88,7 +116,6 @@ var ELang;
         return ELangBase;
     })();
     ELang.ELangBase = ELangBase;    
-    // ELangCommon
     var PageResource = (function () {
         function PageResource() {
             this.lang = {
@@ -121,12 +148,21 @@ var ELang;
                 ELangCommon.resource.selectedLang = langid;
                 var elements;
                 if(node) {
-                    elements = node.find('*').filter('[id*="lbl"], [id*="btn"]');
+                    elements = node.find('*').filter('[id*="lbl"], [id*="btn"], [title-label]');
                 } else {
-                    elements = jQuery('[id*="lbl"], [id*="btn"]');
+                    elements = jQuery('[id*="lbl"], [id*="btn"], [title-label]');
                 }
                 elements.each(function () {
                     var el = this;
+                    if(el.hasAttribute("title-label")) {
+                        var title = el.getAttribute("title-label");
+                        var attribute = (el.hasAttribute("data-original-title")) ? "data-original-title" : "title";
+                        if(title in ELangCommon.resource.lang[langid]) {
+                            el.setAttribute(attribute, ELangCommon.resource.lang[langid][title]);
+                        } else {
+                            el.setAttribute(attribute, "");
+                        }
+                    }
                     if(el.id in ELangCommon.resource.lang[langid]) {
                         if(/INPUT/.test(el.tagName)) {
                             if((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {
@@ -144,9 +180,6 @@ var ELang;
         return ELangCommon;
     })();
     ELang.ELangCommon = ELangCommon;    
-    /**
-    * interfaces and classes for jQuery.fn.__plugin
-    */
     var FnNewInstance = (function () {
         function FnNewInstance(el, options, pluginName) {
             return this.createInstance(el, options, pluginName);
@@ -172,8 +205,7 @@ var ELang;
             var isFirstOnly = true;
             for(var i = 0; i < result.length; i++) {
                 var el = result[i];
-                var fn = el[pluginDataAttribute];// plugin.processCommand()
-                
+                var fn = el[pluginDataAttribute];
                 if(command && (typeof (command) == "string")) {
                     if(jQuery.isFunction(fn)) {
                         fn(command);
@@ -193,4 +225,3 @@ var ELang;
     })();
     ELang.FnJQuery = FnJQuery;    
 })(ELang || (ELang = {}));
-//@ sourceMappingURL=jquery.elang.common.js.map

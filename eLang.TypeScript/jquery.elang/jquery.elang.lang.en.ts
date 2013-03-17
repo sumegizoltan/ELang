@@ -23,12 +23,24 @@ module ELang {
     resource.lblModify= "Modify";
     resource.lblRemove= "Remove";
     resource.lblSearchInExpressions= "Expression";
-    resource.lblSearchInMeanings= "Meaning";
+    resource.lblSearchInMeanings = "Meaning";
+    resource.lblSearchInExpressionsHlp = "Search in expressions";
+    resource.lblSearchInMeaningsHlp = "Search in meanings";
     resource.lblTestHead= "Test";
     resource.lblOrderedTest= "Ordered";
     resource.lblRandomlyTest= "Randomly";
     resource.lblTypedTest= "Typed";
-    resource.lblSelectedTest= "Selected";
+    resource.lblSelectedTest = "Selected";
+    resource.lblWrittedTest = "Writted";
+    resource.lblVoicedTest = "Voiced";
+    resource.lblStartTest = "Start";
+    resource.lblStopTest = "Stop";
+    resource.lblTypedTestHlp = "Typed answers";
+    resource.lblSelectedTestHlp = "Answers from list";
+    resource.lblOrderedTestHlp = "Ordered questions";
+    resource.lblRandomlyTestHlp = "Randomly questions";
+    resource.lblWrittedTestHlp = "Writted questions in screen";
+    resource.lblVoicedTestHlp = "Voiced questions";
     
     jQuery.extend(true, ELangCommon.resource.lang, { en: resource });
 }
