@@ -1,0 +1,246 @@
+// (c) 2010 CodePlex Foundation
+
+
+Sys.loader.defineScripts({
+},
+[
+  
+  { name: "ExtendedCommon",
+    releaseUrl: "%/extended/Common/Common.js",
+    debugUrl: "%/extended/Common/Common.debug.js",
+    executionDependencies: ["ComponentModel"] },
+  { name: "ExtendedDateTime",
+    releaseUrl: "%/extended/Common/DateTime.js",
+    debugUrl: "%/extended/Common/DateTime.debug.js",
+    executionDependencies: ["ExtendedCommon"] },
+  { name: "ExtendedThreading",
+    releaseUrl: "%/extended/Common/Threading.js",
+    debugUrl: "%/extended/Common/Threading.debug.js",
+    executionDependencies: ["Core"] },
+  
+  { name: "ExtendedTimer",
+    releaseUrl: "%/extended/Compat/Timer/Timer.js",
+    debugUrl: "%/extended/Compat/Timer/Timer.debug.js",
+    executionDependencies: ["ComponentModel"] },
+
+  { name: "ExtendedDragDrop",
+    releaseUrl: "%/extended/Compat/DragDrop/DragDropScripts.js",
+    debugUrl: "%/extended/Compat/DragDrop/DragDropScripts.debug.js",
+    executionDependencies: ["ExtendedTimer", "ExtendedCommon"] },
+  
+  { name: "ExtendedBase",
+    releaseUrl: "%/extended/ExtenderBase/BaseScripts.js",
+    debugUrl: "%/extended/ExtenderBase/BaseScripts.debug.js",
+    executionDependencies: ["ComponentModel","Serialization"] },
+  
+  { name: "ExtendedAnimations",
+    releaseUrl: "%/extended/Animation/Animations.js",
+    debugUrl: "%/extended/Animation/Animations.debug.js",
+    executionDependencies: ["ExtendedCommon", "ExtendedTimer"] },
+  { name: "ExtendedAnimationBehavior",
+    releaseUrl: "%/extended/Animation/AnimationBehavior.js",
+    debugUrl: "%/extended/Animation/AnimationBehavior.debug.js",
+    executionDependencies: ["ExtendedAnimations", "ExtendedBase"] },
+  
+  { name: "ExtendedAccordion",
+    releaseUrl: "%/extended/Accordion/AccordionBehavior.js",
+    debugUrl: "%/extended/Accordion/AccordionBehavior.debug.js",
+    behaviors: [{name: "accordion", typeName: "Sys.Extended.UI.AccordionBehavior"}],
+    executionDependencies: ["ExtendedAnimations", "ExtendedBase"] },
+    
+  { name: "ExtendedAlwaysVisible",
+    releaseUrl: "%/extended/AlwaysVisibleControl/AlwaysVisibleControlBehavior.js",
+    debugUrl: "%/extended/AlwaysVisibleControl/AlwaysVisibleControlBehavior.debug.js",
+    behaviors: [{name: "alwaysVisible", typeName: "Sys.Extended.UI.AlwaysVisibleControlBehavior"}],
+    executionDependencies: ["ExtendedAnimations", "ExtendedBase"] },
+
+  { name: "ExtendedAutoComplete",
+    releaseUrl: "%/extended/AutoComplete/AutoCompleteBehavior.js",
+    debugUrl: "%/extended/AutoComplete/AutoCompleteBehavior.debug.js",
+    behaviors: [{name: "autoComplete", typeName: "Sys.Extended.UI.AutoCompleteBehavior"}],
+    executionDependencies: ["ExtendedTimer", "ExtendedAnimationBehavior", "ExtendedPopup"] },
+    
+  { name: "ExtendedCalendar",
+    releaseUrl: "%/extended/Calendar/CalendarBehavior.js",
+    debugUrl: "%/extended/Calendar/CalendarBehavior.debug.js",
+    behaviors: [{name: "calendar", typeName: "Sys.Extended.UI.CalendarBehavior"}],
+    executionDependencies: ["Globalization", "ExtendedBase", "ExtendedDateTime", "ExtendedThreading", "ExtendedAnimationBehavior", "ExtendedPopup"] },
+    
+  { name: "ExtendedCascadingDropDown",
+    releaseUrl: "%/extended/CascadingDropDown/CascadingDropDownBehavior.js",
+    debugUrl: "%/extended/CascadingDropDown/CascadingDropDownBehavior.debug.js",
+    behaviors: [{name: "cascadingDropDown", typeName: "Sys.Extended.UI.CascadingDropDownBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "WebServices"] },
+  
+  { name: "ExtendedCollapsiblePanel",
+    releaseUrl: "%/extended/CollapsiblePanel/CollapsiblePanelBehavior.js",
+    debugUrl: "%/extended/CollapsiblePanel/CollapsiblePanelBehavior.debug.js",
+    behaviors: [{name: "collapsiblePanel", typeName: "Sys.Extended.UI.CollapsiblePanelBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "ExtendedAnimations"] },
+    
+  { name: "ExtendedColorPicker",
+    releaseUrl: "%/extended/ColorPicker/ColorPickerBehavior.js",
+    debugUrl: "%/extended/ColorPicker/ColorPickerBehavior.debug.js",
+    behaviors: [{name: "colorPicker", typeName: "Sys.Extended.UI.ColorPickerBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "ExtendedThreading", "ExtendedPopup"] },
+    
+
+  { name: "ExtendedConfirmButton",
+    releaseUrl: "%/extended/ConfirmButton/confirmButtonBehavior.js",
+    debugUrl: "%/extended/ConfirmButton/confirmButtonBehavior.debug.js",
+    behaviors: [{name: "confirmButton", typeName: "Sys.Extended.UI.ConfirmButtonBehavior", parameters: [{name: "ConfirmText", type: "String"}]}],
+    executionDependencies: ["ExtendedBase"] },
+    
+  { name: "ExtendedFloating",
+    releaseUrl: "%/extended/DragPanel/FloatingBehavior.js",
+    debugUrl: "%/extended/DragPanel/FloatingBehavior.debug.js",
+    behaviors: [{name: "draggable", typeName: "Sys.Extended.UI.FloatingBehavior" }],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "ExtendedDragDrop"] },
+
+  { name: "ExtendedDropDown",
+    releaseUrl: "%/extended/DropDown/DropDownBehavior.js",
+    debugUrl: "%/extended/DropDown/DropDownBehavior.debug.js",
+    behaviors: [{name: "dropDown", typeName: "Sys.Extended.UI.DropDownBehavior" }],
+    executionDependencies: ["ExtendedDynamicPopulate", "ExtendedAnimationBehavior", "ExtendedPopup", "ExtendedHover"] },
+
+  { name: "ExtendedDropShadow",
+    releaseUrl: "%/extended/DropShadow/DropShadowBehavior.js",
+    debugUrl: "%/extended/DropShadow/DropShadowBehavior.debug.js",
+    behaviors: [{name: "dropShadow", typeName: "Sys.Extended.UI.DropShadowBehavior" }],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "ExtendedTimer", "ExtendedRoundedCorners"] },
+
+  { name: "ExtendedDynamicPopulate",
+    releaseUrl: "%/extended/DynamicPopulate/DynamicPopulateBehavior.js",
+    debugUrl: "%/extended/DynamicPopulate/DynamicPopulateBehavior.debug.js",
+    behaviors: [{name: "dynamicPopulate", typeName: "Sys.Extended.UI.DynamicPopulateBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "Network"] },
+
+  { name: "ExtendedFilteredTextBox",
+    releaseUrl: "%/extended/FilteredTextBox/FilteredTextBoxBehavior.js",
+    debugUrl: "%/extended/FilteredTextBox/FilteredTextBoxBehavior.debug.js",
+    behaviors: [{name: "filteredTextBox", typeName: "Sys.Extended.UI.FilteredTextBoxBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+  
+  { name: "ExtendedHover",
+    releaseUrl: "%/extended/HoverExtender/HoverBehavior.js",
+    debugUrl: "%/extended/HoverExtender/HoverBehavior.debug.js",
+    behaviors: [{name: "hover", typeName: "Sys.Extended.UI.HoverBehavior" }],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+
+  { name: "ExtendedHoverMenu",
+    releaseUrl: "%/extended/HoverMenu/HoverMenuBehavior.js",
+    debugUrl: "%/extended/HoverMenu/HoverMenuBehavior.debug.js",
+    behaviors: [{name: "hoverMenu", typeName: "Sys.Extended.UI.HoverMenuBehavior" }],
+    executionDependencies: ["ExtendedDynamicPopulate", "ExtendedHover", "ExtendedAnimationBehavior", "ExtendedPopup"] },
+
+  { name: "ExtendedListSearch",
+    releaseUrl: "%/extended/ListSearch/ListSearchBehavior.js",
+    debugUrl: "%/extended/ListSearch/ListSearchBehavior.debug.js",
+    behaviors: [{name: "listSearch", typeName: "Sys.Extended.UI.ListSearchBehavior" }],
+    executionDependencies: ["ExtendedPopupBehavior"] },
+    
+  { name: "ExtendedMaskedEdit",
+    releaseUrl: "%/extended/MaskedEdit/MaskedEditBehavior.js",
+    debugUrl: "%/extended/MaskedEdit/MaskedEditBehavior.debug.js",
+    behaviors: [{name: "maskedEdit", typeName: "Sys.Extended.UI.MaskedEditBehavior" }],
+    executionDependencies: ["ExtendedBase", "ExtendedTimer", "ExtendedCommon"] },
+    
+  { name: "ExtendedModalPopup",
+    releaseUrl: "%/extended/ModalPopup/ModalPopupBehavior.js",
+    debugUrl: "%/extended/ModalPopup/ModalPopupBehavior.debug.js",
+    behaviors: [{name: "modalPopup", typeName: "Sys.Extended.UI.ModalPopupBehavior" }],
+    executionDependencies: ["ExtendedDynamicPopulate", "ExtendedDropShadow", "ExtendedFloating"] },
+    
+  { name: "ExtendedMultiHandleSlider",
+    releaseUrl: "%/extended/MultiHandleSlider/MultiHandleSliderBehavior.js",
+    debugUrl: "%/extended/MultiHandleSlider/MultiHandleSliderBehavior.debug.js",
+    behaviors: [{name: "multiHandleSlider", typeName: "Sys.Extended.UI.MultiHandleSliderBehavior" }],
+    executionDependencies: ["ExtendedBase", "ExtendedDragDrop", "ExtendedAnimations"] },
+  
+  { name: "ExtendedMutuallyExclusiveCheckBox",
+    releaseUrl: "%/extended/MutuallyExclusiveCheckBox/MutuallyExclusiveCheckBoxBehavior.js",
+    debugUrl: "%/extended/MutuallyExclusiveCheckBox/MutuallyExclusiveCheckBoxBehavior.debug.js",
+    behaviors: [{name: "mutuallyExclusiveCheckBox", typeName: "Sys.Extended.UI.MutuallyExclusiveCheckBoxBehavior", parameters: ["Key"] }],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+
+  { name: "ExtendedUpDown",
+    releaseUrl: "%/extended/NumericUpDown/NumericUpDownBehavior.js",
+    debugUrl: "%/extended/NumericUpDown/NumericUpDownBehavior.debug.js",
+    behaviors: [{name: "upDown", typeName: "Sys.Extended.UI.NumericUpDownBehavior", parameters: ["Minimum", "Maximum", "Width"] }],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "WebServices"] },
+    
+  { name: "ExtendedPagedList",
+    releaseUrl: "%/extended/PagingBulletedList/PagingBulletedListBehavior.js",
+    debugUrl: "%/extended/PagingBulletedList/PagingBulletedListBehavior.debug.js",
+    behaviors: [{name: "pagedList", typeName: "Sys.Extended.UI.PagingBulletedListBehavior" }],
+    executionDependencies: ["ExtendedBase"] },
+    
+  { name: "ExtendedPasswordStrength",
+    releaseUrl: "%/extended/PasswordStrength/PasswordStrengthExtenderBehavior.js",
+    debugUrl: "%/extended/PasswordStrength/PasswordStrengthExtenderBehavior.debug.js",
+    behaviors: [{name: "passwordStrength", typeName: "Sys.Extended.UI.PasswordStrengthExtenderBehavior" }],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+    
+  { name: "ExtendedPopupBehavior",
+    releaseUrl: "%/extended/PopupControl/PopupControlBehavior.js",
+    debugUrl: "%/extended/PopupControl/PopupControlBehavior.js",
+    behaviors: [{name: "popupBehavior", typeName: "Sys.Extended.UI.PopupControlBehavior"}],
+    executionDependencies: ["ExtendedDynamicPopulate", "ExtendedPopup", "ExtendedAnimationBehavior"] },
+
+  { name: "ExtendedPopup",
+    releaseUrl: "%/extended/PopupExtender/PopupBehavior.js",
+    debugUrl: "%/extended/PopupExtender/PopupBehavior.debug.js",
+    behaviors: [{name: "popup", typeName: "Sys.Extended.UI.PopupBehavior"}],
+    executionDependencies: ["ExtendedAnimations", "ExtendedBase"] },
+    
+  { name: "ExtendedRating",
+    releaseUrl: "%/extended/Rating/RatingBehavior.js",
+    debugUrl: "%/extended/Rating/RatingBehavior.debug.js",
+    behaviors: [{name: "rating", typeName: "Sys.Extended.UI.RatingBehavior"}],
+    executionDependencies: ["ExtendedBase"] } ,   
+
+  { name: "ExtendedResizable",
+    releaseUrl: "%/extended/ResizableControl/ResizableControlBehavior.js",
+    debugUrl: "%/extended/ResizableControl/ResizableControlBehavior.debug.js",
+    behaviors: [{name: "resizable", typeName: "Sys.Extended.UI.ResizableControlBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+
+  { name: "ExtendedRoundedCorners",
+    releaseUrl: "%/extended/RoundedCorners/RoundedCornersBehavior.js",
+    debugUrl: "%/extended/RoundedCorners/RoundedCornersBehavior.debug.js",
+    behaviors: [{name: "rounded", typeName: "Sys.Extended.UI.RoundedCornersBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+
+  { name: "ExtendedSlider",
+    releaseUrl: "%/extended/Slider/SliderBehavior.js",
+    debugUrl: "%/extended/Slider/SliderBehavior.debug.js",
+    behaviors: [{name: "slider", typeName: "Sys.Extended.UI.SliderBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedDragDrop", "ExtendedAnimations"] },
+
+  { name: "ExtendedSlideShow",
+    releaseUrl: "%/extended/SlideShow/SlideShowBehavior.js",
+    debugUrl: "%/extended/SlideShow/SlideShowBehavior.debug.js",
+    behaviors: [{name: "slideShow", typeName: "Sys.Extended.UI.SlideShowBehavior"}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon", "ExtendedTimer", "Network"] },
+
+  { name: "ExtendedTabs",
+    releaseUrl: "%/extended/Tabs/Tabs.js",
+    debugUrl: "%/extended/Tabs/Tabs.debug.js",
+    behaviors: [
+        {name: "tabContainer", typeName: "Sys.Extended.UI.TabContainer", parameters: [{ name: "activeTabIndex", type: "Number" }] },
+        {name: "tabPanel", typeName: "Sys.Extended.UI.TabPanel", parameters: [{ name: "owner", type: "Sys.Extended.UI.TabContainer" }, { name: "headerTab", type: "String" }] }],
+    executionDependencies: ["ExtendedDynamicPopulate"] },
+
+  { name: "ExtendedWatermark",
+    releaseUrl: "%/extended/TextboxWatermark/TextboxWatermark.js",
+    debugUrl: "%/extended/TextboxWatermark/TextboxWatermark.debug.js",
+    behaviors: [{name: "watermark", typeName: "Sys.Extended.UI.TextBoxWatermarkBehavior", parameters: [{name:"WatermarkText",type:"String"}, {name:"WatermarkCssClass",type:"String"}]}],
+    executionDependencies: ["ExtendedBase", "ExtendedCommon"] },
+
+  { name: "ExtendedToggleButton",
+    releaseUrl: "%/extended/ToggleButton/ToggleButton.js",
+    debugUrl: "%/extended/ToggleButton/ToggleButton.debug.js",
+    behaviors: [{name: "toggleButton", typeName: "Sys.Extended.UI.ToggleButtonBehavior"}],
+    executionDependencies: ["ExtendedBase"] }
+]
+);

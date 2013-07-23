@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="eLang.Mobile/script"/>
+	<classpathentry excluding="jquery.elang/|Scripts/" kind="src" path="eLang.TypeScript"/>
+	<classpathentry kind="src" path="eLang.TypeScript/jquery.elang"/>
+	<classpathentry kind="src" path="eLang.TypeScript/Scripts"/>
+	<classpathentry kind="src" path="eLang.Web/packages/jQuery.1.9.1/Content/Scripts"/>
+	<classpathentry kind="src" path="eLang.Web/packages/jQuery.1.9.1/Tools"/>
+	<classpathentry kind="src" path="eLang.Web/packages/jQuery.UI.Combined.1.10.0/Content/Scripts"/>
+	<classpathentry kind="src" path="eLang.Web/packages/QUnit-MVC.1.6.2.0/content/Scripts"/>
+	<classpathentry excluding="store.js/" kind="src" path="eLang.Web/Scripts"/>
+	<classpathentry kind="src" path="eLang.Web/Scripts/store.js"/>
+	<classpathentry kind="src" path="packages/Bootstrap-tagmanager.2.2.0/content/Scripts"/>
+	<classpathentry kind="src" path="packages/jQuery.1.9.1/Content/Scripts"/>
+	<classpathentry kind="src" path="packages/jQuery.1.9.1/Tools"/>
+	<classpathentry kind="src" path="packages/jQuery.UI.Combined.1.10.0/Content/Scripts"/>
+	<classpathentry kind="src" path="packages/jQuery.UI.Combined.1.10.1/Content/Scripts"/>
+	<classpathentry kind="src" path="packages/Twitter.Bootstrap.2.3.1/content/Scripts"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
