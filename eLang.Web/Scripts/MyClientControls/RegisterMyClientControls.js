@@ -3,7 +3,9 @@
     debugUrl: "%/../MyClientControls/" + "{0}.debug.js"
 },
     [
-        { name: "ELangCommon",
+        { 	name: "ELangCommon",
+        	releaseUrl: "%/../MyClientControls/elang/" + "{0}.js",
+        	debugUrl: "%/../MyClientControls/elang/" + "{0}.debug.js",
 	        behaviors: [{name: "ELangCommon", typeName: "Sys.Extended.UI.ELangCommon"}],
 	        executionDependencies: ["ExtendedBase", "Bootstrap"] ,
 	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangCommon)
