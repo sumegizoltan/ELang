@@ -17,13 +17,15 @@
             Sys.Extended.UI.ELangCommon.initializeBase(this, [element]);
 
             this._ActiveItem = 0;
+            this._Languages = "en,hu,de";
             
             this._ClassName = "carousel slide";
-        }
+        };
         Sys.Extended.UI.ELangCommon.prototype = {
             initialize: function () {
                 Sys.Extended.UI.ELangCommon.callBaseMethod(this, 'initialize');
-
+                
+                this._createLangMenu();
             },
 
             dispose: function () {
@@ -31,7 +33,19 @@
             },
 
             get_ActiveItem: function () { return this._ActiveItem; },
-            set_ActiveItem: function (value) { this._ActiveItem = value; }
+            set_ActiveItem: function (value) { this._ActiveItem = value; },
+            get_Languages: function () { return this._Languages; },
+            set_Languages: function (value) { this._Languages = value; },
+            
+            _createLangMenu: function(){
+            	
+            },
+            
+            _setLang: function(lang){
+            	Sys.require([Sys.scripts.ELangResource[lang]], function(){
+            		// change language from resource
+            	});
+            }
         };
 
         if (Sys.Extended.UI.BehaviorBase) {
