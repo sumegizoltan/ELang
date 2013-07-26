@@ -42,7 +42,7 @@
             },
             
             _setLang: function(lang){
-            	Sys.require([Sys.scripts.ELangResource[lang]], function(){
+            	Sys.require([Sys.scripts["ELangResource." + lang]], function(){
             		// change language from resource
             	});
             }

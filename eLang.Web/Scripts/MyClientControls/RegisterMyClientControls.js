@@ -19,6 +19,12 @@
         	debugUrl: "%/../MyClientControls/elang/ELangResource.hu.js",
 	        executionDependencies: ["ExtendedBase"] ,
 	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangResource && Sys.Extended.UI.ELangResource.hu)
+	    },
+	    { 	name: "ELangResource.de",
+        	releaseUrl: "%/../MyClientControls/elang/ELangResource.de.js",
+        	debugUrl: "%/../MyClientControls/elang/ELangResource.de.js",
+	        executionDependencies: ["ExtendedBase"] ,
+	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangResource && Sys.Extended.UI.ELangResource.de)
 	    }
     ]
 );
