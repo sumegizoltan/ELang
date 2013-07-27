@@ -5,8 +5,15 @@
         	releaseUrl: "%/../MyClientControls/elang/" + "{0}.js",
         	debugUrl: "%/../MyClientControls/elang/" + "{0}.debug.js",
 	        behaviors: [{name: "ELangCommon", typeName: "Sys.Extended.UI.ELangCommon"}],
-	        executionDependencies: ["ExtendedBase", "Bootstrap", "ELangResource.en"] ,
+	        executionDependencies: ["ExtendedBase", "ExtendedCommon", "Bootstrap", "ELangResource.en"] ,
 	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangCommon)
+	    },
+        { 	name: "ELangBase",
+        	releaseUrl: "%/../MyClientControls/elang/" + "{0}.js",
+        	debugUrl: "%/../MyClientControls/elang/" + "{0}.debug.js",
+	        behaviors: [{name: "ELangBase", typeName: "Sys.Extended.UI.ELangBase"}],
+	        executionDependencies: ["ExtendedBase", "ExtendedCommon", "Bootstrap"] ,
+	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangBase)
 	    },
 	    { 	name: "ELangResource.en",
         	releaseUrl: "%/../MyClientControls/elang/ELangResource.en.js",

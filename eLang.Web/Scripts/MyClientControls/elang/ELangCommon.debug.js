@@ -38,7 +38,7 @@
                 
                 this._createHeader();
                 this._createLangMenu();
-                this._setLang(this._SelectedLang, this.get_element());
+                this._setLang(this._SelectedLang);
             },
 
             dispose: function () {
