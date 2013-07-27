@@ -15,14 +15,7 @@
         		// create extender when required scripts and document loaded
         		$(document).ready(function() {
         			
-        			$create(Sys.Extended.UI.ELangCommon, 
-								{	
-									ActiveItem: 0
-									
-								}, 
-								null, 
-								null, 
-								$get("eLang"));
+        			$create(Sys.Extended.UI.ELangCommon, {}, null, null, $get("eLang"));
 								
 				});
 				
@@ -30,17 +23,6 @@
         </script>
 	</head>
 	<body>
-		<div class="ui-widget content">
-			<div class="ui-widget-header ui-corner-all">
-				<span id="lblPageHeader">eLang - Nyelvtanulás</span>
-			</div>
-			<div class="langmenu ui-menu">
-				<img src="img/en.png" class="ui-menu-icon ui-button lang-en" alt="en" />
-				<img src="img/hu.png" class="ui-menu-icon ui-button lang-hu" alt="hu" />
-			</div>
-			
-			<div id="eLang">
-			</div>
-		</div>
+		<div id="eLang"></div>
 	</body>
 </html>

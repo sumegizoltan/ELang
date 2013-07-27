@@ -16,34 +16,125 @@
         Sys.Extended.UI.ELangCommon = function (element) {
             Sys.Extended.UI.ELangCommon.initializeBase(this, [element]);
 
-            this._ActiveItem = 0;
+            this._ClassName = "ui-widget content";
+            this._HeaderClass = "ui-widget-header ui-corner-all";
             this._Languages = "en,hu,de";
+            this._LangMenuHeight = 20;
+            this._LangMenuItemTemplate = '<img src="img/{0}.png" class="ui-menu-icon ui-button" alt="{0}" />';
             
-            this._ClassName = "carousel slide";
+            this._SelectedLang = "en";
+            
+            this._delegates = {};
         };
         Sys.Extended.UI.ELangCommon.prototype = {
             initialize: function () {
                 Sys.Extended.UI.ELangCommon.callBaseMethod(this, 'initialize');
                 
+                this._delegates.langItemClick = Function.createDelegate(this, this._setLang);
+                
+                if (this._ClassName) {
+                	Sys.UI.DomElement.addCssClass(this.get_element(), this._ClassName);
+                }
+                
+                this._createHeader();
                 this._createLangMenu();
+                this._setLang(this._SelectedLang, this.get_element());
             },
 
             dispose: function () {
                 Sys.Extended.UI.ELangCommon.callBaseMethod(this, "dispose");
             },
 
-            get_ActiveItem: function () { return this._ActiveItem; },
-            set_ActiveItem: function (value) { this._ActiveItem = value; },
+            get_ClassName: function () { return this._ClassName; },
+            set_ClassName: function (value) { this._ClassName = value; },
+            get_HeaderClass: function () { return this._HeaderClass; },
+            set_HeaderClass: function (value) { this._HeaderClass = value; },
             get_Languages: function () { return this._Languages; },
             set_Languages: function (value) { this._Languages = value; },
+            get_SelectedLang: function () { return this._SelectedLang; },
+            set_SelectedLang: function (value) { this._SelectedLang = value; },
+            get_LangMenuHeight: function () { return this._LangMenuHeight; },
+            set_LangMenuHeight: function (value) { this._LangMenuHeight = value; },
+            get_LangMenuItemTemplate: function () { return this._LangMenuItemTemplate; },
+            set_LangMenuItemTemplate: function (value) { this._LangMenuItemTemplate = value; },
             
-            _createLangMenu: function(){
+            _createHeader: function(){
+            	var el = this.get_element();
+            	var header = document.createElement("div");
+            	var label = document.createElement("span");
             	
+            	label.id = "lblPageHeader";
+            	
+            	if (this._HeaderClass) {
+                	Sys.UI.DomElement.addCssClass(header, this._HeaderClass);
+                }
+            	
+            	header.appendChild(label);
+            	el.appendChild(header);
             },
             
-            _setLang: function(lang){
-            	Sys.require([Sys.scripts["ELangResource." + lang]], function(){
-            		// change language from resource
+            _createLangMenu: function(){
+            	var el = this.get_element();
+            	var menu = document.createElement("div");
+            	var lang = this._Languages.split(',');
+            	var handler = this._delegates.langItemClick;
+            	
+            	if (this._LangMenuHeight) {
+            		menu.style.height = this._LangMenuHeight + "px";
+            	}
+
+            	el.appendChild(menu);
+            	menu = jQuery(menu);
+            	
+            	for (var i = 0; i < lang.length; i++) {
+            		var item = jQuery(String.format(this._LangMenuItemTemplate, lang[i]));
+            		
+            		item.click(function(){ handler(lang[i]); });
+            		
+            		item.appendTo(menu);
+            	}
+            },
+            
+            _setLang: function(langid, node){
+            	Sys.require([Sys.scripts["ELangResource." + langid]], function(){
+            		
+            		this._SelectedLang = langid;
+            		
+            		if(langid in Sys.Extended.UI.ELangResource) {
+                        var elements;
+                        
+                        if(node) {
+                            elements = node.find('*').filter('[id*="lbl"], [id*="btn"], [title-label]');
+                        } else {
+                            elements = jQuery('[id*="lbl"], [id*="btn"], [title-label]');
+                        }
+                        
+                        elements.each(function () {
+                            var el = this;
+                            
+                            if(el.hasAttribute("title-label")) {
+                                var title = el.getAttribute("title-label");
+                                var attribute = (el.hasAttribute("data-original-title")) ? "data-original-title" : "title";
+                                if(title in Sys.Extended.UI.ELangResource[langid]) {
+                                    el.setAttribute(attribute, Sys.Extended.UI.ELangResource[langid][title]);
+                                } else {
+                                    el.setAttribute(attribute, "");
+                                }
+                            }
+                            
+                            if(el.id in Sys.Extended.UI.ELangResource[langid]) {
+                                if(/INPUT/.test(el.tagName)) {
+                                    if((el.getAttribute("type") == "text") && el.hasAttribute("placeholder")) {
+                                        el.setAttribute("placeholder", Sys.Extended.UI.ELangResource[langid][el.id]);
+                                    } else {
+                                        jQuery(el).text(Sys.Extended.UI.ELangResource[langid][el.id]);
+                                    }
+                                } else {
+                                    jQuery(el).text(Sys.Extended.UI.ELangResource[langid][el.id]);
+                                }
+                            }
+                        });
+                    }
             	});
             }
         };
