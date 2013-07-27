@@ -10,12 +10,13 @@
         <script type="text/javascript" src="Scripts/MyClientControls/RegisterMyClientControls.js"></script>
         
         <script type="text/javascript"> 
-        	Sys.require([Sys.scripts.ELangCommon], function(){
+        	Sys.require([Sys.scripts.ELangCommon, Sys.scripts.ELangSearch], function(){
         		
         		// create extender when required scripts and document loaded
         		$(document).ready(function() {
         			
         			$create(Sys.Extended.UI.ELangCommon, {}, null, null, $get("eLang"));
+        			$create(Sys.Extended.UI.ELangSearch, {}, null, null, $get("eLang"));
 								
 				});
 				

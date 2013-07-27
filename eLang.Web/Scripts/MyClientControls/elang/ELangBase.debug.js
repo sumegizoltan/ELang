@@ -16,17 +16,17 @@
         Sys.Extended.UI.ELangBase = function (element) {
             Sys.Extended.UI.ELangBase.initializeBase(this, [element]);
 
-            this.ResultCSS = "result well well-small";
-            this.ResultHeadCSS = "ui-widget-content ui-corner-all result-head";
-            this.ContentInnerCSS = "content";
-            this.ContentInnerHtml = '<div></div>';
-            this.FluidRowHtml = '<div class="row-fluid"></div>';
-            this.RadioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
-            this.RadioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
-            this.SubmitButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
-            this.HeadLabelHtml = '<span class="label"></span>';
-            this.ResultHeadLabelHtml = '<span class="label label-info"></span>';
-            this.ResultHtml = '<div><div></div></div>';
+            this._ResultCSS = "result well well-small";
+            this._ResultHeadCSS = "ui-widget-content ui-corner-all result-head";
+            this._ContentInnerCSS = "content";
+            this._ContentInnerHtml = '<div></div>';
+            this._FluidRowHtml = '<div class="row-fluid"></div>';
+            this._RadioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
+            this._RadioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
+            this._SubmitButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
+            this._HeadLabelHtml = '<span class="label"></span>';
+            this._ResultHeadLabelHtml = '<span class="label label-info"></span>';
+            this._ResultHtml = '<div><div></div></div>';
         };
         Sys.Extended.UI.ELangBase.prototype = {
             initialize: function () {

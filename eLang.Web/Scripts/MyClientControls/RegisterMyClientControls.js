@@ -15,6 +15,13 @@
 	        executionDependencies: ["ExtendedBase", "ExtendedCommon", "Bootstrap"] ,
 	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangBase)
 	    },
+        { 	name: "ELangSearch",
+        	releaseUrl: "%/../MyClientControls/elang/" + "{0}.js",
+        	debugUrl: "%/../MyClientControls/elang/" + "{0}.debug.js",
+	        behaviors: [{name: "ELangSearch", typeName: "Sys.Extended.UI.ELangSearch"}],
+	        executionDependencies: ["ELangBase"] ,
+	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangSearch)
+	    },
 	    { 	name: "ELangResource.en",
         	releaseUrl: "%/../MyClientControls/elang/ELangResource.en.js",
         	debugUrl: "%/../MyClientControls/elang/ELangResource.en.js",
