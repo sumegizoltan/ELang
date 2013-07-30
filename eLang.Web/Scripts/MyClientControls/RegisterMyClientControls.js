@@ -5,8 +5,8 @@
         	releaseUrl: "%/../MyClientControls/elang/" + "{0}.js",
         	debugUrl: "%/../MyClientControls/elang/" + "{0}.debug.js",
 	        behaviors: [{name: "ELangCommon", typeName: "Sys.Extended.UI.ELangCommon"}],
-	        executionDependencies: ["ExtendedBase", "ExtendedCommon", "Bootstrap", "ELangResource.en"] ,
-	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangCommon)
+	        executionDependencies: ["ExtendedBase", "ExtendedCommon", "Bootstrap", "ELangResource.en", "ExtendedAccordion"] ,
+	        isLoaded: !!(Sys && Sys.Extended && Sys.Extended.UI && Sys.Extended.UI.ELangCommon && Sys.Extended.UI.AccordionBehavior)
 	    },
         { 	name: "ELangBase",
         	releaseUrl: "%/../MyClientControls/elang/" + "{0}.js",
@@ -61,6 +61,12 @@ Sys.loader.defineScripts({
 	   { name: "Bootstrap",
 	     releaseUrl: "%/../Bootstrap/bootstrap-2.3.2.min.js",
 	     debugUrl: "%/../Bootstrap/bootstrap-2.3.2.js",
+	     dependencies: ["jQuery", "jQueryUI"],
+	     isLoaded: !!(window.jQuery && jQuery.ui && jQuery.fn.carousel)
+	   },
+	   { name: "Bootstrap3",
+	     releaseUrl: "%/../Bootstrap/bootstrap-3rc1.min.js",
+	     debugUrl: "%/../Bootstrap/bootstrap-3rc1.js",
 	     dependencies: ["jQuery", "jQueryUI"],
 	     isLoaded: !!(window.jQuery && jQuery.ui && jQuery.fn.carousel)
 	   }

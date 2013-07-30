@@ -39,6 +39,7 @@
                 this._createHeader();
                 this._createLangMenu();
                 this._setLang(this._SelectedLang);
+                this._createAccordion();
             },
 
             dispose: function () {
@@ -58,8 +59,22 @@
             get_LangMenuItemTemplate: function () { return this._LangMenuItemTemplate; },
             set_LangMenuItemTemplate: function (value) { this._LangMenuItemTemplate = value; },
             
+            _createAccordion: function(){
+            	$create(Sys.Extended.UI.AccordionBehavior, {}, null, null, this.get_element());
+            },
+            
+            _getAccordion: function () {
+                var behavior = null;
+
+                var behaviors = Sys.UI.Behavior.getBehaviorsByType(this.get_element(), Sys.Extended.UI.AccordionBehavior);
+                if (0 in behaviors) {
+                    behavior = behaviors[0];
+                }
+
+                return behavior;
+            },
+            
             _createHeader: function(){
-            	var el = this.get_element();
             	var header = document.createElement("div");
             	var label = document.createElement("span");
             	
@@ -70,11 +85,10 @@
                 }
             	
             	header.appendChild(label);
-            	el.appendChild(header);
+            	document.insertBefore(header, this.get_element());
             },
             
             _createLangMenu: function(){
-            	var el = this.get_element();
             	var menu = document.createElement("div");
             	var lang = this._Languages.split(',');
             	var handler = this._delegates.langItemClick;
@@ -83,7 +97,7 @@
             		menu.style.height = this._LangMenuHeight + "px";
             	}
 
-            	el.appendChild(menu);
+            	document.insertBefore(menu, this.get_element());
             	menu = jQuery(menu);
             	
             	for (var i = 0; i < lang.length; i++) {

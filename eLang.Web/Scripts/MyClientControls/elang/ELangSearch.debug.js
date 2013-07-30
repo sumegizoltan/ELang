@@ -25,10 +25,17 @@
             this._SearchFormHtml = '<form class="form-search"><div class="input-append"></div></form>';
             this._SearchFieldHtml = '<input type="text" class="search-query" />';
             this._SearchButtonLabel = "lblFind";
+            
+            this._isSearchInExp = false;
+            
+            this._delegates = {};
         };
         Sys.Extended.UI.ELangSearch.prototype = {
             initialize: function () {
                 Sys.Extended.UI.ELangSearch.callBaseMethod(this, 'initialize');
+                
+                this._delegates.directionClickHandler = Function.createDelegate(this, this._onDirectionClick);
+                this._delegates.searchClickHandler = Function.createDelegate(this, this._onSearchClick);
                 
                 this._createContent();
             },
@@ -57,6 +64,58 @@
             set_SearchButtonLabel: function (value) { this._SearchButtonLabel = value; },
             
             _createContent: function (){
+            	var el = this.get_element();
+            	var header = document.createElement("div"); 
+            	var content = document.createElement("div");
+            	var innerContent = document.createElement("div");
+            	var contentCSS = this.get_ContentCSS();
+            	
+            	el.appendChild(header);
+            	el.appendChild(content);
+            	
+            	header = jQuery(header);
+            	
+            	// header
+            	jQuery(String.format(this.get_LabelHtml(), this._HeadLabel)).appendTo(header);
+            	
+            	// content
+            	content.appendChild(innerContent);
+            	if (contentCSS) {
+            		Sys.UI.DomElement.addCssClass(innerContent, contentCSS);
+            	}
+            	innerContent = jQuery(innerContent);
+            	
+            	var directionHandler = this._delegates.directionClickHandler;
+            	this.createRadioGroup(innerContent, false, 2, 0, 
+            			[this._ExpressionsLabel, this._MeaningsLabel], 
+            			function(){ directionHandler(this); }, 
+            			[this._ExpressionsTooltip, this._MeaningsTooltip]);
+            	
+            	var form = jQuery(this._SearchFormHtml);
+                var input = jQuery(this._SearchFieldHtml);
+                var search = jQuery(this.get_SubmitButtonHtml());
+                var formIn = this.getLastChild(form);
+                search.add(search.find("*")).filter("span").attr("id", this._SearchButtonLabel);
+                search.click(this._delegates.searchClickHandler);
+                formIn.append(input);
+                formIn.append(search);
+                innerContent.append(form);
+            	
+            	header = header[0];
+            	
+            	// set labels
+            	this._setLang(header);
+            	this._setLang(content);
+            	
+            	// add panel as accordion pane
+            	this._setAccordion(header, content);
+            },
+            
+            _onDirectionClick: function(eSrc){
+            	this._isSearchInExp = this._isRdoChecked(eSrc, this._ExpressionsLabel);
+            },
+            
+            _onSearchClick: function(){
             	
             }
         };

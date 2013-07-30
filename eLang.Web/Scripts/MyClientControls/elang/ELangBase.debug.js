@@ -18,14 +18,13 @@
 
             this._ResultCSS = "result well well-small";
             this._ResultHeadCSS = "ui-widget-content ui-corner-all result-head";
-            this._ContentInnerCSS = "content";
-            this._ContentInnerHtml = '<div></div>';
+            this._ContentCSS = "content";
             this._FluidRowHtml = '<div class="row-fluid"></div>';
             this._RadioGroupHtml = '<div class="btn-group" data-toggle="buttons-radio"></div>';
             this._RadioButtonHtml = '<button type="button" class="btn btn-primary"><span></span></button>';
             this._SubmitButtonHtml = '<button type="submit" class="btn btn-primary"><span></span></button>';
-            this._HeadLabelHtml = '<span class="label"></span>';
-            this._ResultHeadLabelHtml = '<span class="label label-info"></span>';
+            this._LabelHtml = '<span id="{0}" class="label"></span>';
+            this._ResultHeadLabelHtml = '<span id="{0}" class="label label-info"></span>';
             this._ResultHtml = '<div><div></div></div>';
         };
         Sys.Extended.UI.ELangBase.prototype = {
@@ -43,10 +42,8 @@
             set_ResultCSS: function (value) { this._ResultCSS = value; },
             get_ResultHeadCSS: function () { return this._ResultHeadCSS; },
             set_ResultHeadCSS: function (value) { this._ResultHeadCSS = value; },
-            get_ContentInnerCSS: function () { return this._ContentInnerCSS; },
-            set_ContentInnerCSS: function (value) { this._ContentInnerCSS = value; },
-            get_ContentInnerHtml: function () { return this._ContentInnerHtml; },
-            set_ContentInnerHtml: function (value) { this._ContentInnerHtml = value; },
+            get_ContentCSS: function () { return this._ContentCSS; },
+            set_ContentCSS: function (value) { this._ContentCSS = value; },
             get_FluidRowHtml: function () { return this._FluidRowHtml; },
             set_FluidRowHtml: function (value) { this._FluidRowHtml = value; },
             get_RadioGroupHtml: function () { return this._RadioGroupHtml; },
@@ -55,24 +52,47 @@
             set_RadioButtonHtml: function (value) { this._RadioButtonHtml = value; },
             get_SubmitButtonHtml: function () { return this._SubmitButtonHtml; },
             set_SubmitButtonHtml: function (value) { this._SubmitButtonHtml = value; },
-            get_HeadLabelHtml: function () { return this._HeadLabelHtml; },
-            set_HeadLabelHtml: function (value) { this._HeadLabelHtml = value; },
+            get_LabelHtml: function () { return this._LabelHtml; },
+            set_LabelHtml: function (value) { this._LabelHtml = value; },
             get_ResultHeadLabelHtml: function () { return this._ResultHeadLabelHtml; },
             set_ResultHeadLabelHtml: function (value) { this._ResultHeadLabelHtml = value; },
             get_ResultHtml: function () { return this._ResultHtml; },
             set_ResultHtml: function (value) { this._ResultHtml = value; },
             
+            _isRdoChecked: function (eSrc, rdoId) {
+                var btn = jQuery(eSrc);
+                var id = btn.add(btn.find("*")).filter("span[id]").attr("id");
+                return (id == rdoId);
+            },
+            
             _getELangCommon: function () {
                 var behavior = null;
 
-                if (Type.isClass(Sys.Extended.UI.ELangCommon)) {
-                    var behaviors = Sys.UI.Behavior.getBehaviorsByType(this.get_element(), Sys.Extended.UI.ELangCommon);
-                    if (0 in behaviors) {
-                        behavior = behaviors[0];
-                    }
+                var behaviors = Sys.UI.Behavior.getBehaviorsByType(this.get_element(), Sys.Extended.UI.ELangCommon);
+                if (0 in behaviors) {
+                    behavior = behaviors[0];
                 }
 
                 return behavior;
+            },
+            
+            _setLang: function(node){
+            	var common = this._getELangCommon();
+            	var langid = common.get_SelectedLang();
+            	
+            	common._setLang(langid, node);
+            },
+            
+            _setAccordion: function (header, content){
+            	var accordion = this._getELangCommon()._getAccordion();
+            	
+            	accordion.addPane(header, content);
+            	
+            	if (!accordion.get_Count() && accordion.get_requireOpenedPane()) {
+            		accordion._changeSelectedIndex(0, false, true);
+            	}
+            	
+            	accordion._initializeLayout();
             },
             
             _appendAsLastChild: function (node, element) {
