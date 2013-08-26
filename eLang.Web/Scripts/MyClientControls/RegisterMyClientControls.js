@@ -59,14 +59,14 @@ Sys.loader.defineScripts({
 	     isLoaded: !!(window.jQuery && jQuery.ui)
 	   },
 	   { name: "Bootstrap",
-	     releaseUrl: "%/../Bootstrap/bootstrap-2.3.2.min.js",
-	     debugUrl: "%/../Bootstrap/bootstrap-2.3.2.js",
+	     releaseUrl: "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js",
+	     debugUrl: "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js",
 	     dependencies: ["jQuery", "jQueryUI"],
 	     isLoaded: !!(window.jQuery && jQuery.ui && jQuery.fn.carousel)
 	   },
 	   { name: "Bootstrap3",
-	     releaseUrl: "%/../Bootstrap/bootstrap-3rc1.min.js",
-	     debugUrl: "%/../Bootstrap/bootstrap-3rc1.js",
+	     releaseUrl: "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js",
+	     debugUrl: "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js",
 	     dependencies: ["jQuery", "jQueryUI"],
 	     isLoaded: !!(window.jQuery && jQuery.ui && jQuery.fn.carousel)
 	   }

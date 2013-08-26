@@ -85,7 +85,7 @@
                 }
             	
             	header.appendChild(label);
-            	document.insertBefore(header, this.get_element());
+            	this.get_element().parentNode.insertBefore(header, this.get_element());
             },
             
             _createLangMenu: function(){
